@@ -2,11 +2,6 @@ package edu.KaylaKornelis.advancedjava.Assignment1;
 
 public class Book{
 
-    public static void main(String[] args){
-        Book book = new Book("Effective Java", "Joshua Bloch", "Textbook");
-        System.out.println("Your book is \"" + book.getTitle() + "\" by " + book.getAuthor() + ". The genre is \"" + book.getGenre() + "\".");
-    }
-
     //Attributes of a Book
     private String title;
     private String author;
