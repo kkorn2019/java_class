@@ -19,19 +19,19 @@ public class BookTest {
 
     @Before
     public void setup() {
-        Book book = new Book("Introduction to Java", "Spencer Marks", "Textbook");
+        book = new Book("Effective Java", "Joshua Bloch", "Textbook");
     }
 
     @Test
     public void bookTitleSetCorrectly(){
-        String title = book.getTitle();
-        assertEquals(title, "Introduction to Java");
+        title = book.getTitle();
+        assertEquals(title, "Effective Java");
     }
 
     @Test
     public void bookAuthorSetCorrectly(){
         author = book.getAuthor();
-        assertEquals(author, "Spencer Marks");
+        assertEquals(author, "Joshua Bloch");
     }
 
     @Test
@@ -42,19 +42,22 @@ public class BookTest {
 
     @Test
     public void setBookTitleManually(){
-        book.setTitle("Advanced Java");
-        assertEquals(title, "Advanced Java");
+        book.setTitle("Introduction to Java");
+        title = book.getTitle();
+        assertEquals(title, "Introduction to Java");
     }
 
     @Test
     public void setBookAuthorManually(){
-        book.setAuthor("Joshua Bloch");
-        assertEquals(author, "Joshua Bloch");
+        book.setAuthor("Spencer Marks");
+        author = book.getAuthor();
+        assertEquals(author, "Spencer Marks");
     }
 
     @Test
     public void setBookGenreManually(){
         book.setGenre("Reference");
+        genre = book.getGenre();
         assertEquals(genre, "Reference");
     }
 }
