@@ -1,5 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment4;
 
+import edu.KaylaKornelis.advancedjava.Assignment4.Interval.IntervalEnum;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
@@ -16,9 +17,19 @@ public class StockQuoteApplicationTest {
     @Test
     public void listOfStockQuotesReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createListOfStockquotes("APPL", "1/1/2014", "2/1/2014"));
+        assertNotNull(StockQuoteApplication.createListOfStockQuotes("APPL", "1/1/2014", "2/1/2014"));
     }  
      
+    /** 
+     * This method verifies that a valid Object
+     * is returned by the createListOfStockQuotesWithInterval method. 
+     */
+    @Test
+    public void listOfStockQuotesWithIntervalReturned(){
+        //verify that the object returned by the createListOfStockquotes method is not null.
+        assertNotNull(StockQuoteApplication.createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", IntervalEnum.WEEKLY));
+    }
+    
     /** 
      * This method verifies that an invalid Object
      * is returned by the createListOfStockQuotes method. 
@@ -26,8 +37,18 @@ public class StockQuoteApplicationTest {
     @Test (expected = NullPointerException.class)
     public void listOfStockQuotesReturnedNull(){
         //verify that the object returned by the createListOfStockquotes method is null.
-        StockQuoteApplication.createListOfStockquotes(null, null, null);
+        StockQuoteApplication.createListOfStockQuotes(null, null, null);
     }  
+    
+    /** 
+     * This method verifies that a valid Object
+     * is returned by the createListOfStockQuotesWithInterval method. 
+     */
+    @Test (expected = NullPointerException.class)
+    public void listOfStockQuotesWithIntervalReturnedNull(){
+        //verify that the object returned by the createListOfStockquotes method is not null.
+        StockQuoteApplication.createListOfStockQuotesWithInterval(null, null, null, null);
+    }
     
     /** 
      * This method verifies that a valid Object
@@ -37,10 +58,8 @@ public class StockQuoteApplicationTest {
     public void basicStockReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
         assertNotNull(StockQuoteApplication.createBasicStock("APPL"));
-    }  
-     
+    }   
     
-    //this test is failing. Need to do some reworkig.
 //    /** 
 //     * This method verifies that an invalid Object
 //     * is returned by the createBasicStock method when
@@ -51,6 +70,4 @@ public class StockQuoteApplicationTest {
 //        //verify that the object returned by the createBasicStock method is null.
 //        StockQuoteApplication.createBasicStock(null);
 //    }  
-    
-    
 }
