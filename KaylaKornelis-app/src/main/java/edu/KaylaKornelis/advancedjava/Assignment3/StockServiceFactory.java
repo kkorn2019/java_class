@@ -7,7 +7,7 @@ package edu.KaylaKornelis.advancedjava.Assignment3;
 
 public class StockServiceFactory {
     
-    public BasicStockService getStockService(){
+    public static StockService getStockService(){
         /**
          * Create and return a new instance of BasicStockService.
          */

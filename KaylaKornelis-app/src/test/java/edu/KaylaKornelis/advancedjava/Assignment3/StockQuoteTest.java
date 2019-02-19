@@ -25,7 +25,7 @@ public class StockQuoteTest {
         //verify that the getStockSymbol method returned the correct value
         
         //stockSymbol should hold the value of "APPL"
-        assertTrue(stockSymbol.equals("APPL"));
+        assertTrue("Ensure stockSymbol is \"APPL\"", stockSymbol.equals("APPL"));
     }
     
     /** 
@@ -45,7 +45,7 @@ public class StockQuoteTest {
         //verify that the getStockSymbol method returned the correct value
 
         //stockSymbol should hold the value of 100
-        assertEquals(stockPrice, bigDecimalTest);
+        assertEquals("Ensure stockPrice value is 100 of type BigDecimal", stockPrice, bigDecimalTest);
     }
 
     
@@ -64,6 +64,6 @@ public class StockQuoteTest {
         //verify that the getStockSymbol method returned the correct value
 
         //stockSymbol should hold the value of 12.99
-        assertEquals(dateRecorded, dateTest);
+        assertEquals("Ensure dateRecorded is 2019, 2, 2", dateRecorded, dateTest);
     }
 }

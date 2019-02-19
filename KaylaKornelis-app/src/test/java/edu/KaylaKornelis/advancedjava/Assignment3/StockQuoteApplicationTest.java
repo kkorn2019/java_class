@@ -16,7 +16,7 @@ public class StockQuoteApplicationTest {
     @Test
     public void listOfStockQuotesReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createListOfStockquotes("APPL", "1/1/2014", "2/1/2014"));
+        assertNotNull("Ensure list of stock quotes returned is not null", StockQuoteApplication.createListOfStockquotes("APPL", "1/1/2014", "2/1/2014"));
     }  
      
     /** 
@@ -36,21 +36,7 @@ public class StockQuoteApplicationTest {
     @Test
     public void basicStockReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createBasicStock("APPL"));
+        assertNotNull("Ensure basic stock returned is not null", StockQuoteApplication.createBasicStock("APPL"));
     }  
-     
-    
-    //this test is failing. Need to do some reworkig.
-//    /** 
-//     * This method verifies that an invalid Object
-//     * is returned by the createBasicStock method when
-//     * passed a null argument. 
-//     */
-//    @Test (expected = NullPointerException.class)
-//    public void basicStockReturnedNull(){
-//        //verify that the object returned by the createBasicStock method is null.
-//        StockQuoteApplication.createBasicStock(null);
-//    }  
-    
-    
+ 
 }
