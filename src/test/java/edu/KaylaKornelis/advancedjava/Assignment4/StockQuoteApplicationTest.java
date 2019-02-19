@@ -58,16 +58,5 @@ public class StockQuoteApplicationTest {
     public void basicStockReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
         assertNotNull(StockQuoteApplication.createBasicStock("APPL"));
-    }   
-    
-//    /** 
-//     * This method verifies that an invalid Object
-//     * is returned by the createBasicStock method when
-//     * passed a null argument. 
-//     */
-//    @Test (expected = NullPointerException.class)
-//    public void basicStockReturnedNull(){
-//        //verify that the object returned by the createBasicStock method is null.
-//        StockQuoteApplication.createBasicStock(null);
-//    }  
+    }    
 }
