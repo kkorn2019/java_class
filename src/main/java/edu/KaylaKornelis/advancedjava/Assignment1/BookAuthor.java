@@ -31,6 +31,6 @@ public class BookAuthor implements Author {
     @Override
     public String getAuthor(){
         return author;
-    }
+    } 
     
 }
