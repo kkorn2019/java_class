@@ -9,7 +9,7 @@ import org.apache.http.annotation.Immutable;
 @Immutable
 public class StockServiceFactory {
     
-    public BasicStockService getStockService(){
+    public static StockService getStockService(){
         /**
          * Create and return a new instance of BasicStockService.
          */

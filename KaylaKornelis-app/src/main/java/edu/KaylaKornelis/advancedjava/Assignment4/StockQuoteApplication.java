@@ -83,7 +83,7 @@ public class StockQuoteApplication {
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        BasicStockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = stockServiceFactory.getStockService();
            
         /**
         * Create a new List<StockQuote> and call the getQuote method from 
@@ -151,7 +151,7 @@ public class StockQuoteApplication {
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        BasicStockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = stockServiceFactory.getStockService();
             
         /**
         * Get a historical list of stock quotes for the provided symbol
@@ -190,7 +190,7 @@ public class StockQuoteApplication {
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        BasicStockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = stockServiceFactory.getStockService();
  
         /**
          * Create a new StockQuote instance and call the getQuote method 
