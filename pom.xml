@@ -65,12 +65,6 @@
 		<artifactId>httpcore</artifactId>
 		<version>4.3</version>
 	</dependency>
-    <dependency>
-      <groupId>mockito</groupId>
-      <artifactId>mockito</artifactId>
-      <version>2.23.4</version>
-      <scope>test</scope>
-      <type>jar</type>
-    </dependency>
+    
   </dependencies>
 </project>
