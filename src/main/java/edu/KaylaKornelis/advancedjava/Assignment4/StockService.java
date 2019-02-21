@@ -1,6 +1,5 @@
 package edu.KaylaKornelis.advancedjava.Assignment4;
 
-import edu.KaylaKornelis.advancedjava.Assignment4.Interval.IntervalEnum;
 import java.util.Calendar;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -49,6 +48,6 @@ public interface StockService {
      */
     
     @NotNull
-    List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval);
+    List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, Interval interval);
 
 }

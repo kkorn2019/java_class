@@ -1,6 +1,5 @@
 package edu.KaylaKornelis.advancedjava.Assignment4;
 
-import edu.KaylaKornelis.advancedjava.Assignment4.Interval.IntervalEnum;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -81,7 +80,7 @@ public class BasicStockService implements StockService {
     
     @NotNull
     @Override
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval){
+    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, Interval interval){
         
         List<StockQuote> listOfStockQuotes = new ArrayList<>();
         /**Create new instance of StockQuote.

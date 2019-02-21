@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment4;
 
-import edu.KaylaKornelis.advancedjava.Assignment4.Interval.IntervalEnum;
+import edu.KaylaKornelis.advancedjava.Assignment4.Interval;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +26,8 @@ public class StockQuoteApplication {
         /**
          * Call the createListOfStockQuotesWithInterval method to obtain a List of StockQuote instances. 
          */
-        System.out.println(createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", IntervalEnum.WEEKLY));
+        System.out.println(createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", Interval.WEEKLY));
+        System.out.println("Stocks were obtained for the following interval: " + Interval.WEEKLY);
         
         /**
          * Call the createBasicStock method to obtain the current price for a single StockQuote instance.
@@ -73,17 +74,12 @@ public class StockQuoteApplication {
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + until);
         }
-            
-        /**
-         * Create a new instance of StockServiceFactory
-         */
-        StockServiceFactory stockServiceFactory = new StockServiceFactory();
-            
+ 
         /**
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        StockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = StockServiceFactory.getStockService();
            
         /**
         * Create a new List<StockQuote> and call the getQuote method from 
@@ -111,7 +107,7 @@ public class StockQuoteApplication {
     * @return a list of StockQuote instances
     */
     @NotNull
-    public static List<StockQuote> createListOfStockQuotesWithInterval(String symbol, String from, String until, IntervalEnum interval){
+    public static List<StockQuote> createListOfStockQuotesWithInterval(String symbol, String from, String until, Interval interval){
         /**
          * Create a new instance of SimpleDateFormat that will be used to 
          * parse the string arguments to obtain desired start and end dates
@@ -141,17 +137,12 @@ public class StockQuoteApplication {
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + until);
         }
-            
-        /**
-         * Create a new instance of StockServiceFactory
-         */
-        StockServiceFactory stockServiceFactory = new StockServiceFactory();
-        
+               
         /**
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        StockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = StockServiceFactory.getStockService();
             
         /**
         * Get a historical list of stock quotes for the provided symbol
@@ -180,17 +171,12 @@ public class StockQuoteApplication {
     */
     @NotNull
     public static StockQuote createBasicStock(String symbol){
-            
-        /**
-         * Create a new instance of StockServiceFactory
-         */
-        StockServiceFactory stockServiceFactory = new StockServiceFactory();
-        
+
         /**
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
          */
-        StockService basicStockService = stockServiceFactory.getStockService();
+        StockService basicStockService = StockServiceFactory.getStockService();
  
         /**
          * Create a new StockQuote instance and call the getQuote method 
