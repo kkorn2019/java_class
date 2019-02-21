@@ -1,6 +1,5 @@
 package edu.KaylaKornelis.advancedjava.Assignment4;
 
-import edu.KaylaKornelis.advancedjava.Assignment4.Interval.IntervalEnum;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class StockQuoteApplicationTest {
     @Test
     public void listOfStockQuotesWithIntervalReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", IntervalEnum.WEEKLY));
+        assertNotNull(StockQuoteApplication.createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", Interval.WEEKLY));
     }
     
     /** 
