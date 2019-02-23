@@ -25,4 +25,8 @@ hs_err_pid*
 #IDE generated files
 *.iml
 .idea/*
+<<<<<<< HEAD
 *target/
+=======
+*target/
+>>>>>>> master

@@ -12,7 +12,7 @@ public class BasicStockService implements StockService {
     private String stockSymbol;
     private BigDecimal stockPrice;
     private Date dateRecorded;
-    
+
     /**
      * Return the <CODE>StockData</CODE> for the given symbol for the given date.
      * Used to get history data for the stock.
@@ -38,3 +38,4 @@ public class BasicStockService implements StockService {
     }
       
 }
+

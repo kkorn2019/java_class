@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment2;
+package edu.KaylaKornelis.advancedjava.Assignment3;
 
 /**
  *  This class serves as a Factory for the StockService interface and classes that implement the StockService interface for getting stock data.
@@ -7,11 +7,10 @@ package edu.KaylaKornelis.advancedjava.Assignment2;
 
 public class StockServiceFactory {
     
-    public StockService getStockService(){
+    public static StockService getStockService(){
         /**
          * Create and return a new instance of BasicStockService.
          */
         return new BasicStockService();   
     }
 }
-
