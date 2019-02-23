@@ -2,62 +2,78 @@ package edu.KaylaKornelis.advancedjava.Assignment1;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * JUnit tests for the Book class
- *
- * @author Kayla Kornelis
  */
 public class BookTest {
-    private Book book;
-    private String title;
-    private String author;
-    private String genre;
-
-
+    Book book;
+    BookTitle title = new BookTitle("Effective Java");
+    BookAuthor author = new BookAuthor("Joshua Bloch");
+    BookGenre genre = new BookGenre("Textbook");
+  
     @Before
-    public void setup() {
-        book = new Book("Effective Java", "Joshua Bloch", "Textbook");
+    public void setup() { 
+        book = new Book(title, author, genre);
     }
 
     @Test
     public void bookTitleSetCorrectly(){
-        title = book.getTitle();
-        assertEquals(title, "Effective Java");
+        String stringTitle = book.getTitle();
+        assertEquals("The book title was set correctly through constructor", stringTitle, "Effective Java");
+    }
+    
+    @Test
+    public void bookTitleNotAsExpected(){
+        String stringTitle = book.getTitle();
+        assertFalse("The book title does not match what was expected", stringTitle.equals("Introduction to Java"));
     }
 
     @Test
     public void bookAuthorSetCorrectly(){
-        author = book.getAuthor();
-        assertEquals(author, "Joshua Bloch");
+        String stringAuthor = book.getAuthor();
+        assertEquals("The book author was set correctly through constructor", stringAuthor, "Joshua Bloch");
+    }
+    
+    @Test
+    public void bookAuthorNotAsExpected(){
+        String stringAuthor = book.getAuthor();
+        assertFalse("The book author does not match what was expected", stringAuthor.equals("John Doe"));
     }
 
     @Test
     public void bookGenreSetCorrectly(){
-        genre = book.getGenre();
-        assertEquals(genre, "Textbook");
+        String stringGenre = book.getGenre();
+        assertEquals("The book genre was set correctly through constructor", stringGenre, "Textbook");
+    }
+    
+    @Test
+    public void bookGenreNotAsExpected(){
+        String stringGenre = book.getGenre();
+        assertFalse("The book genre does not match what was exected", stringGenre.equals("Reference"));
     }
 
     @Test
     public void setBookTitleManually(){
-        book.setTitle("Introduction to Java");
-        title = book.getTitle();
-        assertEquals(title, "Introduction to Java");
+        title.setTitle("Introduction to Java");
+        String titleTest = book.getTitle();
+        assertEquals("The book title was set correctly through setTitle method", titleTest, "Introduction to Java");
     }
 
     @Test
     public void setBookAuthorManually(){
-        book.setAuthor("Spencer Marks");
-        author = book.getAuthor();
-        assertEquals(author, "Spencer Marks");
+        author.setAuthor("John Doe");
+        String authorTest = book.getAuthor();
+        assertEquals("The book author was set correctly through setAuthor method", authorTest, "John Doe");
     }
 
     @Test
     public void setBookGenreManually(){
-        book.setGenre("Reference");
-        genre = book.getGenre();
-        assertEquals(genre, "Reference");
+        genre.setGenre("Reference");
+        String genreTest = book.getGenre();
+        assertEquals("The book genre was set correctly through setGenre method", genreTest, "Reference");
     }
+    
 }
