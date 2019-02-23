@@ -1,5 +1,7 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments;
+package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service;
 
+import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.Interval;
+import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.StockQuote;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +14,7 @@ import org.apache.http.annotation.Immutable;
  *  This class implements the StockService interface for getting stock data.
  */
 @Immutable
-public class BasicStockService implements StockService {
+class BasicStockService implements StockService {
   
     private Date dateRecorded = new Date();
     private BigDecimal stockPrice = new BigDecimal(100);
@@ -49,19 +51,12 @@ public class BasicStockService implements StockService {
     @NotNull
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until){
-        
-        List<StockQuote> listOfStockQuotes = new ArrayList<>();
-        /**Create new instance of StockQuote.
-        * 
-        * @param dateRecorded  the date the stock info was recorded.
-        * @param stockPrice the price of the stock for the provided date
-        * @param stockSymbol the stock symbol e.g. APPL (for APPLE)
-        *
-        * @return the StockData instance 
+        /**
+         * Create new array list to hold list of stock quotes
          */
-         StockQuote stockQuote = new StockQuote(dateRecorded, stockPrice, stockSymbol);
-        
-         listOfStockQuotes.add(stockQuote);
+        List<StockQuote> listOfStockQuotes = new ArrayList<>();
+
+         listOfStockQuotes.add(getQuote(stockSymbol));
          
          return listOfStockQuotes;
     }
@@ -80,19 +75,15 @@ public class BasicStockService implements StockService {
     @NotNull
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, Interval interval){
-        
-        List<StockQuote> listOfStockQuotes = new ArrayList<>();
-        /**Create new instance of StockQuote.
-        * 
-        * @param dateRecorded  the date the stock info was recorded.
-        * @param stockPrice the price of the stock for the provided date
-        * @param stockSymbol the stock symbol e.g. APPL (for APPLE)
-        *
-        * @return the StockData instance 
+        /**
+         * Create new array list to hold list of stock quotes
          */
-         StockQuote stockQuote = new StockQuote(dateRecorded, stockPrice, stockSymbol);
+        List<StockQuote> listOfStockQuotes = new ArrayList<>();
         
-         listOfStockQuotes.add(stockQuote);
+        /**
+         * Create new stockQuote for the given symbol and add it to the array list
+         */
+         listOfStockQuotes.add(getQuote(stockSymbol));
          
          return listOfStockQuotes;
     }

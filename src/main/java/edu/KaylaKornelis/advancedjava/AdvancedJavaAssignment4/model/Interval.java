@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments;
+package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model;
 
 import javax.validation.constraints.NotNull;
 

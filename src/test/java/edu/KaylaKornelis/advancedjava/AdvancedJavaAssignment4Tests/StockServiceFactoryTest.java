@@ -1,7 +1,7 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignmentsTests;
+package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4Tests;
 
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments.StockServiceFactory;
+import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service.StockServiceFactory;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 

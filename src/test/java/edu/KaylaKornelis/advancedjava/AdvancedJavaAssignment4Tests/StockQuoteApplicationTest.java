@@ -1,7 +1,7 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignmentsTests;
+package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4Tests;
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments.StockQuoteApplication;
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments.Interval;
+import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.StockQuoteApplication;
+import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.Interval;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
