@@ -37,6 +37,10 @@ public enum Interval {
         this.interval = requestedInterval;
     }
     
+    /**
+     *
+     * @return The time frame/interval selected
+     */
     public String getInterval(){
         return interval;
     }

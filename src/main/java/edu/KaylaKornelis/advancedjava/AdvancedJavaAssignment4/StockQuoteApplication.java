@@ -171,6 +171,7 @@ public class StockQuoteApplication {
                     + "Please try again with required format: \"01/01/2011\"");
             System.exit(1);
         }
+        
         return convertedDate;
     }
         

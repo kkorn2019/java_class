@@ -40,7 +40,7 @@ public class StockQuote {
         return dateRecorded;
     }
     
-        /**
+    /**
      *
      * @return The price of one share of stock.
      */
@@ -48,7 +48,7 @@ public class StockQuote {
         return stockPrice;
     }
     
-        /**
+    /**
      *
      * @return the symbol that represents the company whose stock this is.
      * e.g. APPL for APPLE
