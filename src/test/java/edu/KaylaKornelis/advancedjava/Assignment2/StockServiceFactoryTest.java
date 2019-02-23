@@ -21,3 +21,4 @@ public class StockServiceFactoryTest {
         assertTrue(factory.getStockService() instanceof BasicStockService);
     }  
 }
+
