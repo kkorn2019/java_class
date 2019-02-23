@@ -18,7 +18,7 @@ public class StockQuoteApplicationTest {
     @Test
     public void listOfStockQuotesReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createListOfStockQuotes("APPL", "1/1/2014", "2/1/2014"));
+        assertNotNull("List of stock quotes returned should not be null", StockQuoteApplication.createListOfStockQuotes("APPL", "1/1/2014", "2/1/2014"));
     }  
      
     /** 
@@ -28,7 +28,7 @@ public class StockQuoteApplicationTest {
     @Test
     public void listOfStockQuotesWithIntervalReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", Interval.WEEKLY));
+        assertNotNull("List of stock quotes (with interval) returned should not be null",StockQuoteApplication.createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", Interval.WEEKLY));
     }
     
     /** 
@@ -58,6 +58,6 @@ public class StockQuoteApplicationTest {
     @Test
     public void basicStockReturned(){
         //verify that the object returned by the createListOfStockquotes method is not null.
-        assertNotNull(StockQuoteApplication.createBasicStock("APPL"));
+        assertNotNull("Basic stock returned should not be null", StockQuoteApplication.createBasicStock("APPL"));
     }    
 }

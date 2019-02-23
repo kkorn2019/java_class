@@ -20,6 +20,6 @@ public class StockServiceFactoryTest {
         //creating new instance of the StockServiceFactory
         StockServiceFactory factory = new StockServiceFactory();
         //verify that the object returned by the getStockService method is not null.
-        assertNotNull(factory.getStockService());
+        assertNotNull("StockService returned should not be null", factory.getStockService());
     }  
 }
