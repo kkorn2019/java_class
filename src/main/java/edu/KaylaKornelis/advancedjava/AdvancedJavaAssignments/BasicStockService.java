@@ -31,11 +31,10 @@ public class BasicStockService implements StockService {
     @NotNull
     @Override
     public StockQuote getQuote(String symbol){
-        
-        StockQuote stockQuote = new StockQuote(dateRecorded, stockPrice, stockSymbol);
-    
-        return stockQuote;
-        
+        /**
+         * Create and return new StockQuote instance
+         */
+        return new StockQuote(dateRecorded, stockPrice, stockSymbol);        
     }
 
     /**

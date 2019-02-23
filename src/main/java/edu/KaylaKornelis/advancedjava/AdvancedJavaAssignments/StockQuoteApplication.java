@@ -1,6 +1,5 @@
 package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments;
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignments.Interval;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
