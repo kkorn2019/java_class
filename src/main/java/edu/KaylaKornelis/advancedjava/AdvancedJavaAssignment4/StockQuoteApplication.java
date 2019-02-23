@@ -24,8 +24,8 @@ public class StockQuoteApplication {
         String fromDate = "1/1/2014";
         String untilDate = "1/2/2014";
         Interval interval = Interval.WEEKLY;
-       
-        /**
+
+            /**
          * Call the createBasicStock method to obtain the current price for a single StockQuote instance.
          */
         System.out.println(createBasicStock(stockSymbol));
@@ -39,9 +39,18 @@ public class StockQuoteApplication {
          * Call the createListOfStockQuotesWithInterval method to obtain a List of StockQuote instances. 
          */
         System.out.println(createListOfStockQuotesWithInterval(stockSymbol, fromDate, untilDate, interval));
-       
-  
+        
     }
+    
+     /**
+    * This method is used to obtain the current price for a share of stock
+    * for the given symbol
+    *
+    * @param symbol the stock symbol of the company you want a quote for.
+    *      e.g. APPL for APPLE
+    *
+    * @return a  <CODE>StockQuote</CODE> instance
+    */
     
     @NotNull
     public static StockQuote createBasicStock(String symbol){
@@ -142,16 +151,6 @@ public class StockQuoteApplication {
         System.out.println(listStockQuotes.get(0).getDateRecorded());
         return listStockQuotes;    
     }
-        
-    /**
-    * This method is used to obtain the current price for a share of stock
-    * for the given symbol
-    *
-    * @param symbol the stock symbol of the company you want a quote for.
-    *      e.g. APPL for APPLE
-    *
-    * @return a  <CODE>StockQuote</CODE> instance
-    */
     
     public static Calendar convertStringToDate(String dateEntered){
         /**
@@ -168,9 +167,10 @@ public class StockQuoteApplication {
         try{
             convertedDate.setTime(simpleDateFormatter.parse(dateEntered));
         }catch(ParseException e){
-            System.out.println("Unable to parse the date: " + dateEntered);
+            System.out.println("Unable to retrieve stock quote(s) with provided dates. \n"
+                    + "Please try again with required format: \"01/01/2011\"");
+            System.exit(1);
         }
-        
         return convertedDate;
     }
         
