@@ -25,5 +25,13 @@ hs_err_pid*
 #IDE generated files
 *.iml
 .idea/*
+<<<<<<< HEAD
 *target/
 nbactions.xml
+=======
+<<<<<<< HEAD
+*target/
+=======
+*target/
+>>>>>>> master
+>>>>>>> master
