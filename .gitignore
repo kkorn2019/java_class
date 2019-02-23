@@ -27,6 +27,11 @@ hs_err_pid*
 .idea/*
 <<<<<<< HEAD
 *target/
+nbactions.xml
+=======
+<<<<<<< HEAD
+*target/
 =======
 *target/
+>>>>>>> master
 >>>>>>> master
