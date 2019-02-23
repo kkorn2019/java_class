@@ -14,9 +14,9 @@ import org.apache.http.annotation.Immutable;
 @Immutable
 public class BasicStockService implements StockService {
   
-    private Date dateRecorded;
-    private BigDecimal stockPrice;
-    private String stockSymbol;
+    private Date dateRecorded = new Date();
+    private BigDecimal stockPrice = new BigDecimal(100);
+    private String stockSymbol = "APPL";
     
     /**
      * Return the current price for a share of stock
@@ -32,7 +32,7 @@ public class BasicStockService implements StockService {
     @Override
     public StockQuote getQuote(String symbol){
         
-        StockQuote stockQuote = new StockQuote(dateRecorded, stockPrice, symbol);
+        StockQuote stockQuote = new StockQuote(dateRecorded, stockPrice, stockSymbol);
     
         return stockQuote;
         

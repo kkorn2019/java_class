@@ -27,7 +27,6 @@ public class StockQuoteApplication {
          * Call the createListOfStockQuotesWithInterval method to obtain a List of StockQuote instances. 
          */
         System.out.println(createListOfStockQuotesWithInterval("APPL", "1/1/2014", "2/1/2014", Interval.WEEKLY));
-        System.out.println("Stocks were obtained for the following interval: " + Interval.WEEKLY);
         
         /**
          * Call the createBasicStock method to obtain the current price for a single StockQuote instance.
@@ -50,7 +49,7 @@ public class StockQuoteApplication {
          * Create a new instance of SimpleDateFormat that will be used to 
          * parse the string arguments to obtain desired start and end dates
          */
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
+        SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("MM/dd/YYYY");
         Calendar fromDate = Calendar.getInstance();
             
         /**
@@ -58,7 +57,7 @@ public class StockQuoteApplication {
          * invalid date is entered
          */
         try{
-            fromDate.setTime(sdf.parse(from));
+            fromDate.setTime(simpleDateFormatter.parse(from));
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + from);
         }
@@ -70,7 +69,7 @@ public class StockQuoteApplication {
          * invalid date is entered
          */
         try{
-            untilDate.setTime(sdf.parse(until));
+            untilDate.setTime(simpleDateFormatter.parse(until));
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + until);
         }
@@ -112,7 +111,7 @@ public class StockQuoteApplication {
          * Create a new instance of SimpleDateFormat that will be used to 
          * parse the string arguments to obtain desired start and end dates
          */
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
+        SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("MM/dd/YYYY");
         Calendar fromDate = Calendar.getInstance();
        
         /**
@@ -120,7 +119,7 @@ public class StockQuoteApplication {
          * invalid date is entered
          */
         try{
-           fromDate.setTime(sdf.parse(from));
+           fromDate.setTime(simpleDateFormatter.parse(from));
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + from);
         }
@@ -133,7 +132,7 @@ public class StockQuoteApplication {
          * invalid date is entered
          */
         try{
-            untilDate.setTime(sdf.parse(until));
+            untilDate.setTime(simpleDateFormatter.parse(until));
         }catch(ParseException e){
             System.out.println("Unable to parse the date: " + until);
         }
@@ -171,7 +170,7 @@ public class StockQuoteApplication {
     */
     @NotNull
     public static StockQuote createBasicStock(String symbol){
-
+        
         /**
          * Create a new instance of BasicStockService by calling the 
          * getStockService method in the StockServiceFactory
