@@ -22,13 +22,13 @@ public class DatabaseUtils {
 
     //  Database credentials
     private static final String USER = "monty";
-    private static final String PASS = "some_pass";
+    private static final String PASS = "password";
 
     public static Connection getConnection() throws DatabaseConnectionException{
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection =   DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (ClassNotFoundException  | SQLException e)  {
            throw new  DatabaseConnectionException("Could not connection to database." + e.getMessage(), e);
         }

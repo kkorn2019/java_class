@@ -8,6 +8,7 @@ import edu.KaylaKornelis.advancedjava.Assignment5.services.StockServiceFactory;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * A simple application that shows the StockService in action.
@@ -119,12 +120,13 @@ public class BasicStockQuoteApplication {
         // be optimistic init to positive values
         ProgramTerminationStatusEnum exitStatus = ProgramTerminationStatusEnum.NORMAL;
         String programTerminationMessage = "Normal program termination.";
+        
         if (args.length != 3) {
             exit(ProgramTerminationStatusEnum.ABNORMAL,
                     "Please supply 3 arguments a stock symbol, a start date (MM/DD/YYYY) and end date (MM/DD/YYYY)");
         }
         try {
-
+            
             StockQuery stockQuery = new StockQuery(args[0], args[1], args[2]);
             StockService stockService = StockServiceFactory.getInstance();
             BasicStockQuoteApplication basicStockQuoteApplication =
