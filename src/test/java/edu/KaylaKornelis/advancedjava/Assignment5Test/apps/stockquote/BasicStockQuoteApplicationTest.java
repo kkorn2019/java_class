@@ -1,5 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.apps.stockquote;
+package edu.KaylaKornelis.advancedjava.Assignment5Test.apps.stockquote;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.apps.stockquote.BasicStockQuoteApplication;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuery;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockService;

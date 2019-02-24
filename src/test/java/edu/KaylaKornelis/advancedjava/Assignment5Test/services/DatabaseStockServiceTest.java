@@ -1,6 +1,7 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.services;
+package edu.KaylaKornelis.advancedjava.Assignment5Test.services;
 
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
+import edu.KaylaKornelis.advancedjava.Assignment5.services.DatabaseStockService;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

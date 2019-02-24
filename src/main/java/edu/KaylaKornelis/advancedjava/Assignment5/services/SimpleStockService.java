@@ -41,7 +41,7 @@ public class SimpleStockService implements StockService {
      * error.
      */
     @Override
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) {
+    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException{
         // a dead simple implementation.
         List<StockQuote> stockQuotes = new ArrayList<>();
         Date aDay = from.getTime();

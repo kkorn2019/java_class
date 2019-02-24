@@ -23,7 +23,7 @@ public class StockServiceFactory {
      * @return get a <CODE>StockService</CODE> instance
      */
     public static StockService getInstance() {
-        return new StockService() {
+        return new DatabaseStockService() {
             @Override
             public StockQuote getQuote(String symbol) throws StockServiceException {
                 return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);

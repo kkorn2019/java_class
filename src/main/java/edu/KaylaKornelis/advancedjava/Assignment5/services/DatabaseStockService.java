@@ -25,14 +25,17 @@ public class DatabaseStockService implements StockService {
      *
      * @param symbol the stock symbol of the company you want a quote for.
      *               e.g. APPL for APPLE
-     * @return a  <CODE>BigDecimal</CODE> instance
+     * 
+     * @return a  <CODE>StockQuote</CODE> instance
+     * 
      * @throws StockServiceException if using the service generates an exception.
-     *                               If this happens, trying the service may work, depending on the actual cause of the
-     *                               error.
+     * If this happens, trying the service may work, depending on the actual 
+     * cause of the error.
      */
     @Override
     public StockQuote getQuote(String symbol) throws StockServiceException {
         // todo - this is a pretty lame implementation why?
+
         List<StockQuote> stockQuotes = null;
         try {
             Connection connection = DatabaseUtils.getConnection();
@@ -64,12 +67,39 @@ public class DatabaseStockService implements StockService {
      * @param from   the date of the first stock quote
      * @param until  the date of the last stock quote
      * @return a list of StockQuote instances
+     * 
      * @throws   StockServiceException if using the service generates an exception.
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
     @Override
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) {
-        return null;
+    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException {
+        // todo - this is a pretty lame implementation why?
+
+        List<StockQuote> stockQuotes = null;
+        try {
+            Connection connection = DatabaseUtils.getConnection();
+            Statement statement = connection.createStatement();
+            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN " + from + "00:00:00 AND " + until + "23:59:59;";
+            
+            ResultSet resultSet = statement.executeQuery(queryString);
+            stockQuotes = new ArrayList<>(resultSet.getFetchSize());
+            while(resultSet.next()) {
+                String symbolValue = resultSet.getString("symbol");
+                Date time = resultSet.getDate("time");
+                BigDecimal price = resultSet.getBigDecimal("price");
+                stockQuotes.add(new StockQuote(price, time, symbolValue));
+            }
+
+        } catch (DatabaseConnectionException | SQLException exception) {
+            throw new StockServiceException(exception.getMessage(), exception);
+        }
+        if (stockQuotes.isEmpty()) {
+            throw new StockServiceException("There is no stock data for:" + symbol + " between " + from + " and " + until
+            + ".");
+        }
+
+        return stockQuotes;
     }
+    
 }

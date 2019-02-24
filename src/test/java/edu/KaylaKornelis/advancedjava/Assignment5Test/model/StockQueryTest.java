@@ -1,5 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.model;
+package edu.KaylaKornelis.advancedjava.Assignment5Test.model;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuery;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BasicStockQuoteApplication {
 
-    private StockService stockService;
+    private final StockService stockService;
 
     // an example of how to use enum - not part of assignment 3 but useful for assignment 4
 
@@ -28,7 +28,7 @@ public class BasicStockQuoteApplication {
         ABNORMAL(-1);
 
         // when the program exits, this value will be reported to underlying OS
-        private int statusCode;
+        private final int statusCode;
 
         /**
          * Create a new  ProgramTerminationStatusEnum
@@ -80,7 +80,8 @@ public class BasicStockQuoteApplication {
             stringBuilder.append(stockQuote.toString());
         }
 
-        return stringBuilder.toString();
+        System.out.println(stockQuotes);
+        return stringBuilder.toString();        
     }
 
     /**

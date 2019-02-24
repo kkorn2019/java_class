@@ -1,5 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.util;
+package edu.KaylaKornelis.advancedjava.Assignment5Test.util;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseUtils;
 import org.junit.Test;
 
 import java.sql.Connection;

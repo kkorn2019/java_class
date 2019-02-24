@@ -1,5 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.model;
+package edu.KaylaKornelis.advancedjava.Assignment5Test.model;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import org.junit.Before;
 import org.junit.Test;
 
