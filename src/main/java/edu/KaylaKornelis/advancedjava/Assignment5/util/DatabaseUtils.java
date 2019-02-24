@@ -30,7 +30,7 @@ public class DatabaseUtils {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (ClassNotFoundException  | SQLException e)  {
-           throw new  DatabaseConnectionException("Could not connection to database." + e.getMessage(), e);
+           throw new  DatabaseConnectionException("Could not connect to database." + e.getMessage(), e);
         }
         return connection;
     }
