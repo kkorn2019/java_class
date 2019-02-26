@@ -90,9 +90,6 @@ public class DatabaseStockService implements StockService {
             String fromDateString = simpleDateFormat.format(from.getTime());
             String untilDateString = simpleDateFormat.format(until.getTime());
             
-            System.out.println(fromDateString);
-            System.out.println(untilDateString);
-            
             String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + fromDateString + "' AND '" + untilDateString + "')";
             
             ResultSet resultSet = statement.executeQuery(queryString);
@@ -135,7 +132,12 @@ public class DatabaseStockService implements StockService {
         try {
             Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
-            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + from + "' AND '" + until + "') ORDER BY time";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
+            
+            String fromDateString = simpleDateFormat.format(from.getTime());
+            String untilDateString = simpleDateFormat.format(until.getTime());
+            
+            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + fromDateString + "' AND '" + untilDateString + "') ORDER BY time";
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());
