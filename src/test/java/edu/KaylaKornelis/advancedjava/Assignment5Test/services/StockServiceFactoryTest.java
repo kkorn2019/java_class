@@ -10,7 +10,10 @@ import static org.junit.Assert.assertNotNull;
  * JUnit test for <CODE>StockServiceFactory</CODE>
  */
 public class StockServiceFactoryTest {
-
+    /** 
+     * This method verifies that a valid Object
+     * is returned by the getStockService method. 
+     */
     @Test
     public void testGetInstance() {
         StockService stockService = StockServiceFactory.getInstance();

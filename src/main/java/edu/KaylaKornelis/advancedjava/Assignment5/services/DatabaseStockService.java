@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -134,7 +135,7 @@ public class DatabaseStockService implements StockService {
         try {
             Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
-            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN \"" + from +  " 00:00:00\" AND \"" + until + " 23:59:59\" ORDER BY time;";
+            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + from + "' AND '" + until + "') ORDER BY time";
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());

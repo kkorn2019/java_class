@@ -1,23 +1,120 @@
 package edu.KaylaKornelis.advancedjava.Assignment5Test.services;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.model.StockData;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.DatabaseStockService;
+import edu.KaylaKornelis.advancedjava.Assignment5.services.StockServiceException;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseInitializationException;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseUtils;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 
 /**
  * Unit tests for the DatabaseStockService
  */
 public class DatabaseStockServiceTest {
 
+    private DatabaseStockService databaseStockService;
+    
+    @Before
+    public void setUp() throws DatabaseInitializationException{
+        DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
+        databaseStockService = new DatabaseStockService();
+    }
+    
     @Test
     public void testGetQuote() throws Exception {
-        DatabaseStockService databaseStockService = new DatabaseStockService();
         String symbol = "APPL";
         StockQuote stockQuote = databaseStockService.getQuote(symbol);
         assertNotNull("Verify we can get a stock quote from the db", stockQuote);
         assertEquals("Make sure the symbols match", symbol, stockQuote.getSymbol());
+    }
+    
+    @Test (expected = StockServiceException.class)
+    public void testGetQuoteNegative() throws Exception{
+        String symbol = "MSFT";
+        StockQuote stockQuote = databaseStockService.getQuote(symbol);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuote);
+        assertTrue("Ensure no records for the given symbol", stockQuote.getSymbol().isEmpty());
+    }
+    
+    @Test
+    public void testGetQuoteList() throws Exception{
+        String symbol = "APPL";
+        String fromDate = "2000-01-01 00:00:00";
+        String untilDate = "2014-04-05 23:59:59";
+        
+        Calendar fromCalendar = convertStringToDate(fromDate);
+        Calendar untilCalendar = convertStringToDate(untilDate);
+        
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertFalse("Ensure list of stockQuotes is not empty", stockQuotes.isEmpty());
+    }
+    
+    @Test (expected = StockServiceException.class)
+    public void testGetQuoteListNegative() throws Exception{
+        String symbol = "APPL";
+        String fromDate = "2019-01-01 00:00:00";
+        String untilDate = "2019-02-05 23:59:59";
+        
+        Calendar fromCalendar = convertStringToDate(fromDate);
+        Calendar untilCalendar = convertStringToDate(untilDate);
+        
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar);
+        assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
+    }  
+    
+    @Test
+    public void testGetQuoteListWithInterval() throws Exception{
+        String symbol = "GOOG";
+        String fromDate = "2004-08-02 00:00:01";
+        String untilDate = "2015-02-03 23:59:59";
+        
+        Calendar fromCalendar = convertStringToDate(fromDate);
+        Calendar untilCalendar = convertStringToDate(untilDate);
+        
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertFalse("Ensure list of stockQuotes is NOT empty", stockQuotes.isEmpty());
+    }
+    
+    @Test (expected = StockServiceException.class)
+    public void testGetQuoteListWithIntervalNegative() throws Exception{
+        String symbol = "GOOG";
+        String fromDate = "2004-08-02 00:00:01";
+        String untilDate = "2015-02-03 23:59:59";
+        
+        Calendar fromCalendar = convertStringToDate(fromDate);
+        Calendar untilCalendar = convertStringToDate(untilDate);
+        
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
+    }
+    
+    public static Calendar convertStringToDate(String dateEntered) throws ParseException{
+        /**
+         * Create a new instance of SimpleDateFormat that will be used to 
+         * parse the string arguments to obtain desired start and end dates
+         */
+        DateFormat dateFormatter = new SimpleDateFormat(StockData.dateFormat);
+        Date date = dateFormatter.parse(dateEntered);
+        Calendar convertedDate = Calendar.getInstance();
+        convertedDate.setTime(date);
+        
+        return convertedDate;
     }
 }

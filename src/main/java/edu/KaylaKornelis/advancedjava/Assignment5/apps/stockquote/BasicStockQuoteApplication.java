@@ -63,7 +63,7 @@ public class BasicStockQuoteApplication {
     }
 
     /**
-     * Given a <CODE>stockQuery</CODE> get back a the info about the stock to display to th user.
+     * Given a <CODE>stockQuery</CODE> get back the info about the stock to display to the user.
      *
      * @param stockQuery the stock to get data for.
      * @return a String with the stock data in it.
@@ -138,6 +138,9 @@ public class BasicStockQuoteApplication {
         } catch (StockServiceException e) {
             exitStatus = ProgramTerminationStatusEnum.ABNORMAL;
             programTerminationMessage = "StockService failed: " + e.getMessage();
+        } catch (Exception e){
+            exitStatus = ProgramTerminationStatusEnum.ABNORMAL;
+            programTerminationMessage = "Exception encountered: " + e.getMessage();
         }
 
         exit(exitStatus, programTerminationMessage);
