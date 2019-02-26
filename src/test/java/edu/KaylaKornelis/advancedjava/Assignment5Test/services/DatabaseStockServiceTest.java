@@ -26,22 +26,41 @@ import org.junit.Before;
  */
 public class DatabaseStockServiceTest {
 
+    /**
+     * Declare instance of DatabaseStockService 
+     * that can be used throughout this test class
+     */
     private DatabaseStockService databaseStockService;
     
+    /** 
+     * Initialize database through DatabaseUtils class and 
+     * initialize databaseStockService variable to a new instance of DatabaseStockService class
+     * @throws DatabaseInitializationException
+     */
     @Before
     public void setUp() throws DatabaseInitializationException{
         DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
         databaseStockService = new DatabaseStockService();
     }
     
+    /** 
+     * Test that single quote can be retrieved from the database with the 
+     * getQuote method
+     * @throws StockServiceException
+     */
     @Test
-    public void testGetQuote() throws Exception {
+    public void testGetQuote() throws StockServiceException {
         String symbol = "APPL";
         StockQuote stockQuote = databaseStockService.getQuote(symbol);
         assertNotNull("Verify we can get a stock quote from the db", stockQuote);
         assertEquals("Make sure the symbols match", symbol, stockQuote.getSymbol());
     }
     
+    /** 
+     * Test that no records are retrieved from the database with a symbol 
+     * that is known to not be present
+     * @throws StockServiceException
+     */
     @Test (expected = StockServiceException.class)
     public void testGetQuoteNegative() throws Exception{
         String symbol = "MSFT";
@@ -50,6 +69,11 @@ public class DatabaseStockServiceTest {
         assertTrue("Ensure no records for the given symbol", stockQuote.getSymbol().isEmpty());
     }
     
+    /** 
+     * Test that a list of stock quotes is able to be retrieved from the database
+     * with the getQuote method  when passing in a symbol, and from and until dates.
+     * @throws Exception (StockServiceException or ParseException)
+     */
     @Test
     public void testGetQuoteList() throws Exception{
         String symbol = "APPL";
@@ -64,6 +88,12 @@ public class DatabaseStockServiceTest {
         assertFalse("Ensure list of stockQuotes is not empty", stockQuotes.isEmpty());
     }
     
+    /** 
+     * Test that list of stock quotes retrieved from the database is empty when 
+     * give symbol/dates that are known to not be present in the database
+     * with the getQuote method  when passing in a symbol, and from and until dates.
+     * @throws StockServiceException
+     */
     @Test (expected = StockServiceException.class)
     public void testGetQuoteListNegative() throws Exception{
         String symbol = "APPL";
@@ -77,6 +107,11 @@ public class DatabaseStockServiceTest {
         assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
     }  
     
+    /** 
+     * Test that a list of stock quotes is able to be retrieved from the database
+     * with the getQuote method  when passing in a symbol, from and until dates, and interval.
+     * @throws Exception (StockServiceException or ParseException)
+     */
     @Test
     public void testGetQuoteListWithInterval() throws Exception{
         String symbol = "GOOG";
@@ -91,6 +126,12 @@ public class DatabaseStockServiceTest {
         assertFalse("Ensure list of stockQuotes is NOT empty", stockQuotes.isEmpty());
     }
     
+    /** 
+     * Test that list of stock quotes retrieved from the database is empty when 
+     * given symbol/dates that are known to not be present in the database
+     * with the getQuote method  when passing in a symbol, from and until dates, and interval.
+     * @throws Exception (StockServiceException or ParseException)
+     */
     @Test (expected = StockServiceException.class)
     public void testGetQuoteListWithIntervalNegative() throws Exception{
         String symbol = "GOOG";
@@ -105,7 +146,13 @@ public class DatabaseStockServiceTest {
         assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
     }
     
-    public static Calendar convertStringToDate(String dateEntered) throws ParseException{
+    /**
+     * This method converts a date of type String to a date of type Calendar
+     * @param dateEntered the date needed to convert
+     * @return converted date of type Calendar
+     * @throws ParseException 
+     */
+    public static Calendar convertStringToDate(String dateEntered)throws ParseException{
         /**
          * Create a new instance of SimpleDateFormat that will be used to 
          * parse the string arguments to obtain desired start and end dates
