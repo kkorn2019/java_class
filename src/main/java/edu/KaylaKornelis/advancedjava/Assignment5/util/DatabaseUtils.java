@@ -14,6 +14,8 @@ import java.sql.SQLException;
  * A class that contains database related utility methods.
  */
 public class DatabaseUtils {
+    
+    public static final String initializationFile = "./src/main/sql/stocks_db_initialization.sql" ;
 
     // in a real program these values would be a configurable property and not hard coded.
     // JDBC driver name and database URL
@@ -31,7 +33,7 @@ public class DatabaseUtils {
     public static Connection getConnection() throws DatabaseConnectionException{
         Connection connection = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (ClassNotFoundException  | SQLException e)  {
            throw new  DatabaseConnectionException("Could not connect to database." + e.getMessage(), e);

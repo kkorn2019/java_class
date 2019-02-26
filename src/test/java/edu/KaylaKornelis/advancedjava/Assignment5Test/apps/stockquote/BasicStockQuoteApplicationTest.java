@@ -5,6 +5,7 @@ import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuery;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockService;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockServiceException;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,8 +44,8 @@ public class BasicStockQuoteApplicationTest {
     public void testDisplayResults() throws ParseException, StockServiceException {
         basicStockQuoteApplication = new BasicStockQuoteApplication(stockServiceMock);
         String symbol = "APPL";
-        String from = "2011-10-29 01:01:01";
-        String until = "2011-11-29 23:59:59";
+        String from = "2011-10-29 12:12:12";
+        String until = "2014-11-29 12:12:12";
         StockQuery stockQuery = new StockQuery(symbol, from, until);
 
         List<StockQuote> stockQuotes = new ArrayList<>();
@@ -53,7 +54,10 @@ public class BasicStockQuoteApplicationTest {
         StockQuote stockQuoteUntilDate = new StockQuote(new BigDecimal(100), stockQuery.getUntil().getTime(), stockQuery.getSymbol());
         stockQuotes.add(stockQuoteUntilDate);
 
-        when(stockServiceMock.getQuote(any(String.class), any(Calendar.class), any(Calendar.class))).thenReturn(stockQuotes);
+        when(stockServiceMock.getQuote(any(String.class),
+                any(Calendar.class),
+                any(Calendar.class),
+                any(IntervalEnum.class))).thenReturn(stockQuotes);
 
         String output = basicStockQuoteApplication.displayStockQuotes(stockQuery);
         assertTrue("make sure symbol appears in output", output.contains(symbol));

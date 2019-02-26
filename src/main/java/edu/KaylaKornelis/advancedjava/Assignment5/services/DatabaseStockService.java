@@ -29,7 +29,7 @@ public class DatabaseStockService implements StockService {
      * @param symbol the stock symbol of the company you want a quote for.
      *               e.g. APPL for APPLE
      * 
-     * @return a  <CODE>StockQuote</CODE> instance
+     * @return a  <CODE>BigDecimal</CODE> instance
      * 
      * @throws StockServiceException if using the service generates an exception.
      * If this happens, trying the service may work, depending on the actual 
@@ -49,7 +49,7 @@ public class DatabaseStockService implements StockService {
 
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 String symbolValue = resultSet.getString("symbol");
                 Date time = resultSet.getDate("time");
                 BigDecimal price = resultSet.getBigDecimal("price");
@@ -84,7 +84,7 @@ public class DatabaseStockService implements StockService {
         try {
             Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormatPattern);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
             
             String fromDateString = simpleDateFormat.format(from.getTime());
             String untilDateString = simpleDateFormat.format(until.getTime());
@@ -92,7 +92,7 @@ public class DatabaseStockService implements StockService {
             System.out.println(fromDateString);
             System.out.println(untilDateString);
             
-            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + fromDateString + " 00:00:00' AND '" + untilDateString + "23:59:59';";
+            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + fromDateString + "' AND '" + untilDateString + "')";
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());
@@ -138,7 +138,7 @@ public class DatabaseStockService implements StockService {
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 String symbolValue = resultSet.getString("symbol");
                 Date time = resultSet.getDate("time");
                 BigDecimal price = resultSet.getBigDecimal("price");

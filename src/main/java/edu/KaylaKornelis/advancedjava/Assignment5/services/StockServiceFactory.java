@@ -1,19 +1,8 @@
 package edu.KaylaKornelis.advancedjava.Assignment5.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import javax.validation.constraints.NotNull;
-import org.apache.http.annotation.Immutable;
-
 /**
  * A factory that returns a <CODE>StockService</CODE> instance.
  */
-@Immutable
 public class StockServiceFactory {
 
     /**
@@ -26,23 +15,6 @@ public class StockServiceFactory {
      * @return get a <CODE>StockService</CODE> instance
      */
     public static StockService getInstance() {
-        return new DatabaseStockService() {
-            @Override
-            public StockQuote getQuote(@NotNull String symbol) throws StockServiceException {
-                return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
-            }
-
-            @Override
-            public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until) throws StockServiceException {
-                List<StockQuote> stockQuotes = new ArrayList<>();
-                Date aDay = from.getTime();
-                while (until.after(aDay))  {
-                    stockQuotes.add(new StockQuote(new BigDecimal(100),aDay,symbol));
-                    from.add(Calendar.DAY_OF_YEAR, 1);
-                    aDay = from.getTime();
-                }
-                return stockQuotes;            }
-        };
+        return new DatabaseStockService();
     }
-
 }
