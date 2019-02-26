@@ -43,8 +43,8 @@ public class BasicStockQuoteApplicationTest {
     public void testDisplayResults() throws ParseException, StockServiceException {
         basicStockQuoteApplication = new BasicStockQuoteApplication(stockServiceMock);
         String symbol = "APPL";
-        String from = "2011/10/29";
-        String until = "2011/11/29";
+        String from = "2011-10-29 01:01:01";
+        String until = "2011-11-29 23:59:59";
         StockQuery stockQuery = new StockQuery(symbol, from, until);
 
         List<StockQuote> stockQuotes = new ArrayList<>();

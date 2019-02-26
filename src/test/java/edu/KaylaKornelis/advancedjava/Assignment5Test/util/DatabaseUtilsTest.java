@@ -17,7 +17,7 @@ public class DatabaseUtilsTest {
     @Test
     public void testGetConnection() throws Exception{
         Connection connection = DatabaseUtils.getConnection();
-        assertNotNull("verify that we can get a connection ok",connection);
+        assertNotNull("verify that we can get a connection", connection);
     }
 
     @Test

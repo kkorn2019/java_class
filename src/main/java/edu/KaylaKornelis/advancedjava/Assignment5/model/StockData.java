@@ -15,7 +15,7 @@ public abstract class StockData {
     protected SimpleDateFormat simpleDateFormat;
     
     public static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
-
+    
     /**
      * Base constructor for StockData classes.
      * Initialize member data that is shared with sub classes.

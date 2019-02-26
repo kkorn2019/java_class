@@ -33,6 +33,7 @@
 				<version>3.0.0-M3</version>
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
+					<argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
 				</configuration>
 			</plugin>
             

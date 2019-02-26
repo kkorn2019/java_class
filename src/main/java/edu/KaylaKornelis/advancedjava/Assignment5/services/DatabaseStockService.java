@@ -84,7 +84,7 @@ public class DatabaseStockService implements StockService {
         try {
             Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormatPattern);
             
             String fromDateString = simpleDateFormat.format(from.getTime());
             String untilDateString = simpleDateFormat.format(until.getTime());
