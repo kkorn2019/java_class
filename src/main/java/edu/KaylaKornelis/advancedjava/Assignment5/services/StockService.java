@@ -1,14 +1,17 @@
 package edu.KaylaKornelis.advancedjava.Assignment5.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment5.model.IntervalEnum;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 
 import java.util.Calendar;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.apache.http.annotation.Immutable;
 
 /**
  * This API describes how to get stock data from an external resource.
  */
+@Immutable
 public interface StockService {
 
 
@@ -22,6 +25,7 @@ public interface StockService {
      *                               If this happens, trying the service may work, depending on the actual cause of the
      *                               error.
      */
+    @NotNull
     StockQuote getQuote(String symbol) throws StockServiceException;
 
     /**
@@ -35,6 +39,7 @@ public interface StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
+    @NotNull
     List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException;
 
     /**
@@ -49,6 +54,7 @@ public interface StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
+    @NotNull
     List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval) throws StockServiceException;
 }
 

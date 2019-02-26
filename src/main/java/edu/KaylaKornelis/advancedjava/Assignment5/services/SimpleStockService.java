@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment5.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment5.model.IntervalEnum;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 
 import java.math.BigDecimal;
@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.apache.http.annotation.Immutable;
 
 /**
  * An implementation of the StockService that returns hard coded data.
  */
+@Immutable
 public class SimpleStockService implements StockService {
 
     /**
@@ -24,8 +27,9 @@ public class SimpleStockService implements StockService {
      *                               If this happens, trying the service may work, depending on the actual cause of the
      *                               error.
      */
+    @NotNull
     @Override
-    public StockQuote getQuote(String symbol) {
+    public StockQuote getQuote(String symbol) throws StockServiceException {
         // a dead simple implementation.
         return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
     }
@@ -41,6 +45,7 @@ public class SimpleStockService implements StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
+    @NotNull
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException{
         // a dead simple implementation.
@@ -66,6 +71,7 @@ public class SimpleStockService implements StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
+    @NotNull
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval) throws StockServiceException{
         // a dead simple implementation.

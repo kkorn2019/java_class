@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment5.model;
+package edu.KaylaKornelis.advancedjava.Assignment5.util;
 
 import javax.validation.constraints.NotNull;
 
@@ -6,10 +6,23 @@ import javax.validation.constraints.NotNull;
 *  This enum defines the intervals of time a user can request quotes for.
 */
 public enum IntervalEnum {
-    HOURLY("one(1) hour"), 
-    DAILY("twenty-four(24) hours"), 
-    WEEKLY("seven(7) days"), 
-    MONTHLY("thirty(30) days");
+    
+    /**
+     * one(1) hour
+     */
+    HOUR("hour"), 
+    /**
+     * twenty-four(24) hours
+     */
+    DAY("day"), 
+    /**
+     * seven(7) days
+     */
+    WEEK("week"),
+    /**
+     * thirty(30) days
+     */
+    MONTH("month");
     
     private final String interval;
     

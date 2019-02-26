@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.apache.http.annotation.Immutable;
 
 /**
  * A factory that returns a <CODE>StockService</CODE> instance.
  */
+@Immutable
 public class StockServiceFactory {
 
     /**
@@ -24,11 +27,13 @@ public class StockServiceFactory {
      */
     public static StockService getInstance() {
         return new DatabaseStockService() {
+            @NotNull
             @Override
             public StockQuote getQuote(String symbol) throws StockServiceException {
                 return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
             }
 
+            @NotNull
             @Override
             public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException {
                 List<StockQuote> stockQuotes = new ArrayList<>();

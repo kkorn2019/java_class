@@ -2,15 +2,20 @@ package edu.KaylaKornelis.advancedjava.Assignment5.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+import org.apache.http.annotation.Immutable;
 
 /**
  * A container class that contains stock data.
+ * This class is immutable. It holds stock info for a given point time.
+
  */
+@Immutable
 public class StockQuote extends StockData {
 
-    private BigDecimal price;
-    private Date date;
-    private String symbol;
+    private final BigDecimal price;
+    private final Date date;
+    private final String symbol;
 
     /**
      * Create a new instance of a StockQuote.
@@ -19,6 +24,7 @@ public class StockQuote extends StockData {
      * @param date   the date of the share price
      * @param symbol the stock symbol.
      */
+    @NotNull
     public StockQuote(BigDecimal price, Date date, String symbol) {
         super();
         this.price = price;

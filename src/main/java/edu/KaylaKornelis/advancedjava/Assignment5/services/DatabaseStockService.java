@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment5.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment5.model.IntervalEnum;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseConnectionException;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseUtils;
