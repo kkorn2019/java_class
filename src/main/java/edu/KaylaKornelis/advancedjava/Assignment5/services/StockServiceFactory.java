@@ -27,15 +27,13 @@ public class StockServiceFactory {
      */
     public static StockService getInstance() {
         return new DatabaseStockService() {
-            @NotNull
             @Override
-            public StockQuote getQuote(String symbol) throws StockServiceException {
+            public StockQuote getQuote(@NotNull String symbol) throws StockServiceException {
                 return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
             }
 
-            @NotNull
             @Override
-            public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException {
+            public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until) throws StockServiceException {
                 List<StockQuote> stockQuotes = new ArrayList<>();
                 Date aDay = from.getTime();
                 while (until.after(aDay))  {

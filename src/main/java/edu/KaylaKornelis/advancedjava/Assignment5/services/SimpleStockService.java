@@ -27,9 +27,8 @@ public class SimpleStockService implements StockService {
      *                               If this happens, trying the service may work, depending on the actual cause of the
      *                               error.
      */
-    @NotNull
     @Override
-    public StockQuote getQuote(String symbol) throws StockServiceException {
+    public StockQuote getQuote(@NotNull String symbol) throws StockServiceException {
         // a dead simple implementation.
         return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
     }
@@ -45,9 +44,8 @@ public class SimpleStockService implements StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
-    @NotNull
     @Override
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException{
+    public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until) throws StockServiceException{
         // a dead simple implementation.
         List<StockQuote> stockQuotes = new ArrayList<>();
         Date aDay = from.getTime();
@@ -71,9 +69,8 @@ public class SimpleStockService implements StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
-    @NotNull
     @Override
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval) throws StockServiceException{
+    public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until, @NotNull IntervalEnum interval) throws StockServiceException{
         // a dead simple implementation.
         List<StockQuote> stockQuotes = new ArrayList<>();
         Date aDay = from.getTime();

@@ -5,10 +5,10 @@ import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockService;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment5.services.StockServiceFactory;
+import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * A simple application that shows the StockService in action.
@@ -74,14 +74,13 @@ public class BasicStockQuoteApplication {
         StringBuilder stringBuilder = new StringBuilder();
 
         List<StockQuote> stockQuotes =
-                stockService.getQuote(stockQuery.getSymbol(), stockQuery.getFrom(), stockQuery.getUntil());
+                stockService.getQuote(stockQuery.getSymbol(), stockQuery.getFrom(), stockQuery.getUntil(), IntervalEnum.HOUR);
 
         stringBuilder.append("Stock quotes for: " + stockQuery.getSymbol() + "\n");
         for (StockQuote stockQuote : stockQuotes) {
             stringBuilder.append(stockQuote.toString());
         }
 
-        System.out.println(stockQuotes);
         return stringBuilder.toString();        
     }
 

@@ -25,8 +25,7 @@ public interface StockService {
      *                               If this happens, trying the service may work, depending on the actual cause of the
      *                               error.
      */
-    @NotNull
-    StockQuote getQuote(String symbol) throws StockServiceException;
+    StockQuote getQuote(@NotNull String symbol) throws StockServiceException;
 
     /**
      * Get a historical list of stock quotes for the provide symbol
@@ -39,8 +38,7 @@ public interface StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
-    @NotNull
-    List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException;
+    List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until) throws StockServiceException;
 
     /**
      * Get a historical list of stock quotes for the provide symbol
@@ -54,7 +52,6 @@ public interface StockService {
      * If this happens, trying the service may work, depending on the actual cause of the
      * error.
      */
-    @NotNull
-    List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval) throws StockServiceException;
+    List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until, @NotNull IntervalEnum interval) throws StockServiceException;
 }
 

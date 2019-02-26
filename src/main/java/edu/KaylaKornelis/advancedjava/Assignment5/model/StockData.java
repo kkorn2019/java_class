@@ -13,13 +13,15 @@ public abstract class StockData {
      * and to avoid duplicated code.
      */
     protected SimpleDateFormat simpleDateFormat;
+    
+    public static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * Base constructor for StockData classes.
      * Initialize member data that is shared with sub classes.
      */
     public StockData() {
-        simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        simpleDateFormat = new SimpleDateFormat(dateFormat);
     }
 
 }

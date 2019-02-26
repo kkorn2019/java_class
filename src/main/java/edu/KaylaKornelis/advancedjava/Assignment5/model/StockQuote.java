@@ -24,8 +24,8 @@ public class StockQuote extends StockData {
      * @param date   the date of the share price
      * @param symbol the stock symbol.
      */
-    @NotNull
-    public StockQuote(BigDecimal price, Date date, String symbol) {
+
+    public StockQuote(@NotNull BigDecimal price, @NotNull Date date, @NotNull String symbol) {
         super();
         this.price = price;
         this.date = date;

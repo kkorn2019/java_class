@@ -1,5 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment5.services;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.model.StockData;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.IntervalEnum;
 import edu.KaylaKornelis.advancedjava.Assignment5.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseConnectionException;
@@ -11,6 +12,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,7 +37,9 @@ public class DatabaseStockService implements StockService {
      */
     @Override
     public StockQuote getQuote(String symbol) throws StockServiceException {
-        // todo - this is a pretty lame implementation why?
+        /* todo - this is a pretty lame implementation. why? 
+        - needs better exception handling
+        - only returns one stockQuote from the list, when there may be many returned*/
 
         List<StockQuote> stockQuotes = null;
         try {
@@ -80,7 +84,15 @@ public class DatabaseStockService implements StockService {
         try {
             Connection connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
-            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN " + from + "00:00:00 AND " + until + "23:59:59;";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
+            
+            String fromDateString = simpleDateFormat.format(from.getTime());
+            String untilDateString = simpleDateFormat.format(until.getTime());
+            
+            System.out.println(fromDateString);
+            System.out.println(untilDateString);
+            
+            String queryString = "SELECT * FROM quotes where symbol = '" + symbol + "' AND (time BETWEEN '" + fromDateString + " 00:00:00' AND '" + untilDateString + "23:59:59';";
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());

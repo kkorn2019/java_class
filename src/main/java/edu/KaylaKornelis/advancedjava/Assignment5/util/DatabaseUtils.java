@@ -24,6 +24,10 @@ public class DatabaseUtils {
     private static final String USER = "monty";
     private static final String PASS = "password";
 
+    /**
+     * @return a new connection to the database
+     * @throws DatabaseConnectionException if cannot connect to database
+     */
     public static Connection getConnection() throws DatabaseConnectionException{
         Connection connection = null;
         try {
