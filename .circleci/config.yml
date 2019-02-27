@@ -28,7 +28,6 @@ jobs:
 
     steps:
       - checkout
-      - run: docker-compose rm -v
       - run: sudo apt install mysql-client
       - run:
           name: install dockerize
