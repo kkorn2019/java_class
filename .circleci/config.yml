@@ -16,8 +16,11 @@ jobs:
     
       - image: circleci/mysql:8.0.15
         environment:
-          MYSQL_USER: monty
-          MYSQL_PASSWORD: password
+          MYSQL_DATABASE=circle_test
+          MYSQL_HOST=127.0.0.1
+          MYSQL_ROOT_HOST=%
+          MYSQL_USER=monty
+          MYSQL_PASSWORD=password
           
     working_directory: ~/repo
     
