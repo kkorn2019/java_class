@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service;
+package edu.KaylaKornelis.advancedjava.Assignment4.service;
 
 import org.apache.http.annotation.Immutable;
 

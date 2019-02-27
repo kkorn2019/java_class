@@ -1,7 +1,7 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service;
+package edu.KaylaKornelis.advancedjava.Assignment4.service;
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.Interval;
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.StockQuote;
+import edu.KaylaKornelis.advancedjava.Assignment4.model.Interval;
+import edu.KaylaKornelis.advancedjava.Assignment4.model.StockQuote;
 import java.util.Calendar;
 import java.util.List;
 import javax.validation.constraints.NotNull;

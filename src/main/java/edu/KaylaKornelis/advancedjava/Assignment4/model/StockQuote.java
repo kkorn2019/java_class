@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model;
+package edu.KaylaKornelis.advancedjava.Assignment4.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

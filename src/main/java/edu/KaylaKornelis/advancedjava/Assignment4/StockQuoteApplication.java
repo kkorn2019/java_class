@@ -1,9 +1,9 @@
-package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4;
+package edu.KaylaKornelis.advancedjava.Assignment4;
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.Interval;
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.StockQuote;
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service.StockService;
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.service.StockServiceFactory;
+import edu.KaylaKornelis.advancedjava.Assignment4.model.Interval;
+import edu.KaylaKornelis.advancedjava.Assignment4.model.StockQuote;
+import edu.KaylaKornelis.advancedjava.Assignment4.service.StockService;
+import edu.KaylaKornelis.advancedjava.Assignment4.service.StockServiceFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

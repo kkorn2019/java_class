@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4Tests;
 
-import edu.KaylaKornelis.advancedjava.AdvancedJavaAssignment4.model.StockQuote;
+import edu.KaylaKornelis.advancedjava.Assignment4.model.StockQuote;
 import java.math.BigDecimal;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
