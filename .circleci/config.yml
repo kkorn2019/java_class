@@ -16,10 +16,9 @@ jobs:
     
       - image: circleci/mysql:8.0.15
         environment:
-          MYSQL_USER=monty
-          MYSQL_PASSWORD=password
-          MYSQL_HOST=localhost
-          DB_URL="jdbc:mysql://localhost:3306/stocks"
+          MYSQL_USER=root
+          MYSQL_ROOT_PASSWORD=password
+          MYSQL_HOST=%
           
     working_directory: ~/repo
     
