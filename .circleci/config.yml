@@ -18,8 +18,8 @@ jobs:
         environment:
           MYSQL_USER=monty
           MYSQL_PASSWORD=password
-          MYSQL_HOST=127.0.0.1
-          MYSQL_PORT=3306
+          MYSQL_HOST=%
+          MYSQL_DATABASE=circle_test
           
     working_directory: ~/repo
     
