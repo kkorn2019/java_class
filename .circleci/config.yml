@@ -17,7 +17,8 @@ jobs:
       - image: circleci/mysql:8.0.15
         environment:
           MYSQL_USER=monty
-          MYSQL_PASS=password
+          MYSQL_PASSWORD=password
+          MYSQL_HOST=127.0.0.1
           
     working_directory: ~/repo
     
@@ -27,7 +28,9 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo apt install mysql-client
+      - run: 
+          name:Install necessary items
+          command: sudo apt install mysql-client
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
@@ -36,9 +39,8 @@ jobs:
       - run:
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run:
-          name: MySQL version
-          command: bundle exec ruby mysql_version.rb
+          
+
 
       # Download and cache dependencies
       - restore_cache:
