@@ -20,6 +20,10 @@ public class StockQuoteTest {
     private String symbol;
     private StockQuote stockQuote;
 
+    /**
+     * Set up for StockQuote class before each test by initializing 
+     * all variables 
+     */
     @Before
     public void setUp() {
         price = new BigDecimal(100);
@@ -28,16 +32,25 @@ public class StockQuoteTest {
         stockQuote = new StockQuote(price, date, symbol);
     }
 
+    /**
+     * Test that the getPrice method in StockQuote returns the expected value
+     */
     @Test
     public void testGetPrice() {
         assertEquals("Share price is correct", price, stockQuote.getPrice());
     }
 
+    /**
+     * Test that the getDate method in StockQuote returns the expected value
+     */
     @Test
     public void testGetDate() {
         assertEquals("Share date is correct", date, stockQuote.getDate());
     }
 
+    /**
+     * Test that the getSymbol method in StockQuote returns the expected value
+     */
     @Test
     public void testGetSymbol() {
         assertEquals("Symbol  is correct", symbol, stockQuote.getSymbol());

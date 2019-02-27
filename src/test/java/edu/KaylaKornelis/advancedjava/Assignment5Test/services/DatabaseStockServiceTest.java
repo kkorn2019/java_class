@@ -62,7 +62,7 @@ public class DatabaseStockServiceTest {
      * @throws StockServiceException
      */
     @Test (expected = StockServiceException.class)
-    public void testGetQuoteNegative() throws Exception{
+    public void testGetQuoteNegative() throws StockServiceException{
         String symbol = "MSFT";
         StockQuote stockQuote = databaseStockService.getQuote(symbol);
         assertNotNull("Verify we can get a stock quote from the db", stockQuote);
@@ -72,10 +72,11 @@ public class DatabaseStockServiceTest {
     /** 
      * Test that a list of stock quotes is able to be retrieved from the database
      * with the getQuote method  when passing in a symbol, and from and until dates.
-     * @throws Exception (StockServiceException or ParseException)
+     * @throws ParseException
+     * @throws StockServiceException
      */
     @Test
-    public void testGetQuoteList() throws Exception{
+    public void testGetQuoteList() throws ParseException, StockServiceException{
         String symbol = "APPL";
         String fromDate = "2000-01-01 00:00:00";
         String untilDate = "2014-04-05 23:59:59";
@@ -92,10 +93,11 @@ public class DatabaseStockServiceTest {
      * Test that list of stock quotes retrieved from the database is empty when 
      * give symbol/dates that are known to not be present in the database
      * with the getQuote method  when passing in a symbol, and from and until dates.
+     * @throws ParseException
      * @throws StockServiceException
      */
     @Test (expected = StockServiceException.class)
-    public void testGetQuoteListNegative() throws Exception{
+    public void testGetQuoteListNegative() throws ParseException, StockServiceException{
         String symbol = "APPL";
         String fromDate = "2019-01-01 00:00:00";
         String untilDate = "2019-02-05 23:59:59";
@@ -110,10 +112,11 @@ public class DatabaseStockServiceTest {
     /** 
      * Test that a list of stock quotes is able to be retrieved from the database
      * with the getQuote method  when passing in a symbol, from and until dates, and interval.
-     * @throws Exception (StockServiceException or ParseException)
+     * @throws ParseException
+     * @throws StockServiceException
      */
     @Test
-    public void testGetQuoteListWithInterval() throws Exception{
+    public void testGetQuoteListWithInterval() throws ParseException, StockServiceException{
         String symbol = "GOOG";
         String fromDate = "2004-08-02 00:00:01";
         String untilDate = "2015-02-03 23:59:59";
@@ -122,7 +125,7 @@ public class DatabaseStockServiceTest {
         Calendar untilCalendar = convertStringToDate(untilDate);
         
         List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
-        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertNotNull("Verify we can get a list of stock quotes from the db", stockQuotes);
         assertFalse("Ensure list of stockQuotes is NOT empty", stockQuotes.isEmpty());
     }
     
@@ -130,19 +133,20 @@ public class DatabaseStockServiceTest {
      * Test that list of stock quotes retrieved from the database is empty when 
      * given symbol/dates that are known to not be present in the database
      * with the getQuote method  when passing in a symbol, from and until dates, and interval.
-     * @throws Exception (StockServiceException or ParseException)
+     * @throws ParseException
+     * @throws StockServiceException
      */
     @Test (expected = StockServiceException.class)
-    public void testGetQuoteListWithIntervalNegative() throws Exception{
+    public void testGetQuoteListWithIntervalNegative() throws ParseException, StockServiceException{
         String symbol = "GOOG";
-        String fromDate = "2004-08-02 00:00:01";
-        String untilDate = "2015-02-03 23:59:59";
+        String fromDate = "2015-08-02 00:00:01";
+        String untilDate = "2016-02-03 23:59:59";
         
         Calendar fromCalendar = convertStringToDate(fromDate);
         Calendar untilCalendar = convertStringToDate(untilDate);
         
         List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
-        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertNotNull("Verify we can get a list of stock quotes from the db", stockQuotes);
         assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
     }
     

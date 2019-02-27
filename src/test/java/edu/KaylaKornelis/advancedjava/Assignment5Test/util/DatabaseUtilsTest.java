@@ -15,12 +15,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class DatabaseUtilsTest {
 
+    /**
+     * Test that can successfully create a connection to the database
+     * @throws Exception 
+     */
     @Test
     public void testGetConnection() throws Exception{
         Connection connection = DatabaseUtils.getConnection();
         assertNotNull("verify that we can get a connection", connection);
     }
 
+    /**
+     * Test that can successfully create a connection to the database and retrieve 
+     * stock quotes through execution of a statement
+     * @throws Exception 
+     */
     @Test
     public void testGetConnectionWorks() throws Exception{
         Connection connection = DatabaseUtils.getConnection();
@@ -29,11 +38,20 @@ public class DatabaseUtilsTest {
         assertTrue("verify that we can execute a statement",execute);
     }
     
+    /**
+     * Test that we can successfully initialize the database with given data file
+     * @throws Exception 
+     */
     @Test
     public void testDatabaseInitializationSuccess() throws Exception{
         DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
     }
     
+    /**
+     * Test that we receive a DatabaseInitializationException  when a known invalid
+     * file name is passed to the initializeDatabase method
+     * @throws Exception 
+     */
     @Test (expected = DatabaseInitializationException.class)
     public void testDatabaseInitializationFailure() throws Exception{
         DatabaseUtils.initializeDatabase("some string");

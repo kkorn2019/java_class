@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -141,11 +141,22 @@ public class DatabaseStockService implements StockService {
             
             ResultSet resultSet = statement.executeQuery(queryString);
             stockQuotes = new ArrayList<>(resultSet.getFetchSize());
+            StockQuote previousStockQuote = null;
+            Calendar calendar = Calendar.getInstance();
+            
             while (resultSet.next()) {
                 String symbolValue = resultSet.getString("symbol");
-                Date time = resultSet.getDate("time");
+                Timestamp timestamp = resultSet.getTimestamp("time");
+                calendar.setTimeInMillis(timestamp.getTime());
                 BigDecimal price = resultSet.getBigDecimal("price");
-                stockQuotes.add(new StockQuote(price, time, symbolValue));
+                java.util.Date time = calendar.getTime();
+                StockQuote currentStockQuote = new StockQuote(price, time, symbolValue);
+                
+                if (previousStockQuote == null){
+                    stockQuotes.add(currentStockQuote);
+                } else if (isInterval(currentStockQuote.getDate(), interval, previousStockQuote.getDate())){
+                    previousStockQuote = currentStockQuote;
+                }
             }
 
         } catch (DatabaseConnectionException | SQLException exception) {
@@ -157,6 +168,23 @@ public class DatabaseStockService implements StockService {
         }
 
         return stockQuotes;
+    }
+    
+    /**
+     * This method checks if the date/time of the currentStockQuote is later than 
+     * the date/time of the previousStockQuote. If so, return true
+     *
+     * @param endDate   the end date/time
+     * @param interval  the amount of time that has to be between the currentStockQuote
+     * and previousStockQuote for this method to return true
+     * @param startDate the start date/time
+     * @return true(1) or false(0)
+     */
+    private Boolean isInterval(java.util.Date endDate, IntervalEnum interval, java.util.Date startDate){
+        Calendar startDatePlusInterval = Calendar.getInstance();
+        startDatePlusInterval.setTime(startDate);
+        startDatePlusInterval.add(Calendar.MINUTE, interval.getInterval());
+        return endDate.after(startDatePlusInterval.getTime());
     }
     
 }

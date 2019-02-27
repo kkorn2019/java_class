@@ -29,17 +29,31 @@ public class BasicStockQuoteApplicationTest {
     private BasicStockQuoteApplication basicStockQuoteApplication;
     private StockService stockServiceMock;
 
+    /**
+     * Set up mocking for StockService class before each test by initializing 
+     * stockServiceMock instance to a mock object
+     */
     @Before
     public void setUp() {
         stockServiceMock = mock(StockService.class);
     }
 
+    /** 
+     * Test that the basicStockQuoteApplication instance can correctly be initialized
+     * and is not null.
+     */
     @Test
     public void testValidConstruction() {
         basicStockQuoteApplication = new BasicStockQuoteApplication(stockServiceMock);
-        assertNotNull("Basic construction works");
+        assertNotNull("Basic construction works", basicStockQuoteApplication);
     }
-
+    
+    /** 
+     * Test that the basicStockQuoteApplication instance can correctly be initialized, 
+     * a stockQuote successfully retrieved from the database through the StockQuote class.
+     * @throws ParseException
+     * @throws StockServiceException
+     */
     @Test
     public void testDisplayResults() throws ParseException, StockServiceException {
         basicStockQuoteApplication = new BasicStockQuoteApplication(stockServiceMock);
@@ -65,7 +79,10 @@ public class BasicStockQuoteApplicationTest {
         assertTrue("make sure until date in output", output.contains(until));
 
     }
-
+    /** 
+     * Test that a null pointer exception is thrown when a null value is passed into the 
+     * main method of the application.
+     */
     @Test(expected = NullPointerException.class)
     public void testMainNegative() {
         BasicStockQuoteApplication.main(null);

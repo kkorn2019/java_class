@@ -17,4 +17,3 @@ INSERT INTO quotes (symbol,time,price) VALUES ('AMZN','2015-02-10 00:01:01','363
 INSERT INTO quotes (symbol,time,price) VALUES ('AMZN','2015-02-10 00:02:01','250.21');
 INSERT INTO quotes (symbol,time,price) VALUES ('AMZN','2015-02-10 00:03:01','251.21');
 INSERT INTO quotes (symbol,time,price) VALUES ('AMZN','2015-02-10 00:04:01','253.21');
-
