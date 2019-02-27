@@ -20,7 +20,7 @@ jobs:
           MYSQL_HOST=127.0.0.1
           MYSQL_ROOT_HOST=%
           MYSQL_USER=monty
-          MYSQL_PASSWORD=password
+          MYSQL_PASS=password
           
     working_directory: ~/repo
     
