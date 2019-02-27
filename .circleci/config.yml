@@ -19,6 +19,7 @@ jobs:
           MYSQL_USER=monty
           MYSQL_PASSWORD=password
           MYSQL_HOST=localhost
+          DB_URL="jdbc:mysql://localhost:3306/stocks"
           
     working_directory: ~/repo
     
@@ -37,8 +38,6 @@ jobs:
       - run:
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-          
-
 
       # Download and cache dependencies
       - restore_cache:
