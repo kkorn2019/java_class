@@ -4,7 +4,7 @@ import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuery;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.StockService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.StockServiceException;
-import edu.KaylaKornelis.advancedjava.Assignment6.services.StockServiceFactory;
+import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.IntervalEnum;
 
 import java.text.ParseException;
@@ -127,7 +127,7 @@ public class BasicStockQuoteApplication {
         try {
             
             StockQuery stockQuery = new StockQuery(args[0], args[1], args[2]);
-            StockService stockService = StockServiceFactory.getInstance();
+            StockService stockService = ServiceFactory.getStockServiceInstance();
             BasicStockQuoteApplication basicStockQuoteApplication =
                     new BasicStockQuoteApplication(stockService);
             basicStockQuoteApplication.displayStockQuotes(stockQuery);

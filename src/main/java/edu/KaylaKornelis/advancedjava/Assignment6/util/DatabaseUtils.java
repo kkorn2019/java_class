@@ -1,6 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.util;
 
 import com.ibatis.common.jdbc.ScriptRunner;
+import edu.KaylaKornelis.advancedjava.Assignment6.services.DatabasePersonService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +10,10 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
  * A class that contains database related utility methods.
@@ -16,16 +21,48 @@ import java.sql.SQLException;
 public class DatabaseUtils {
     
     public static final String initializationFile = "./src/main/sql/stocks_db_initialization.sql" ;
+    
+    private static SessionFactory sessionFactory;
+    private static Configuration configuration;
 
-    // in a real program these values would be a configurable property and not hard coded.
-    // JDBC driver name and database URL
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/stocks";
+    /*
+   * @return SessionFactory for use with database transactions
+   */
+    public static SessionFactory getSessionFactory() {
 
-    //  Database credentials
-    private static final String USER = "root";
-    private static final String PASS = "password";
+        // singleton pattern
+        synchronized (DatabasePersonService.class) {
+            if (sessionFactory == null) {
 
+                Configuration configuration = getConfiguration();
+
+                ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties())
+                        .buildServiceRegistry();
+
+                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+
+            }
+        }
+        return sessionFactory;
+    }
+
+    /**
+     * Create a new or return an existing database configuration object.
+     *
+     * @return a Hibernate Configuration instance.
+     */
+    private static Configuration getConfiguration() {
+
+        synchronized (DatabaseUtils.class) {
+            if (configuration == null) {
+                configuration = new Configuration();
+                configuration.configure("hibernate.cfg.xml");
+            }
+        }
+        return configuration;
+    }
+    
     /**
      * @return a new connection to the database
      * @throws DatabaseConnectionException if cannot connect to database
@@ -33,8 +70,13 @@ public class DatabaseUtils {
     public static Connection getConnection() throws DatabaseConnectionException{
         Connection connection = null;
         try {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String databaseUrl = configuration.getProperty("connection.url");
+            String username = configuration.getProperty("hibernate.connection.username");
+            String password = configuration.getProperty("hibernate.connection.password");
+            connection = DriverManager.getConnection(databaseUrl, username, password);
+        
+// an example of throwing an exception appropriate to the abstraction.
         } catch (ClassNotFoundException  | SQLException e)  {
            throw new  DatabaseConnectionException("Could not connect to database." + e.getMessage(), e);
         }
@@ -64,7 +106,5 @@ public class DatabaseUtils {
            throw new DatabaseInitializationException("Could not initialize db because of:"
                    + e.getMessage(),e);
         }
-
-
     }
 }
