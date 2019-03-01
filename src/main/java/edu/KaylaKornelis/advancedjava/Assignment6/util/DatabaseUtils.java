@@ -69,6 +69,7 @@ public class DatabaseUtils {
      */
     public static Connection getConnection() throws DatabaseConnectionException{
         Connection connection = null;
+        Configuration configuration = getConfiguration();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String databaseUrl = configuration.getProperty("connection.url");
@@ -93,6 +94,7 @@ public class DatabaseUtils {
         Connection connection = null;
         try {
             connection = getConnection();
+            connection.setAutoCommit(false);
             ScriptRunner runner = new ScriptRunner(connection, false, false);
             InputStream inputStream = new  FileInputStream(initializationScript);
 
@@ -100,6 +102,7 @@ public class DatabaseUtils {
 
             runner.runScript(reader);
             reader.close();
+            connection.commit();
             connection.close();
 
         } catch (DatabaseConnectionException | SQLException |IOException e) {
