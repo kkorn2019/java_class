@@ -35,7 +35,7 @@ public class DatabaseUtilsTest {
         Connection connection = DatabaseUtils.getConnection();
         Statement statement = connection.createStatement();
         boolean execute = statement.execute("select * from quotes");
-        assertTrue("verify that we can execute a statement",execute);
+        assertTrue("verify that we can execute a statement", execute);
     }
     
     /**
