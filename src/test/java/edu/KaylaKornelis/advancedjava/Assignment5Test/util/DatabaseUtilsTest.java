@@ -1,5 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment5Test.util;
 
+import edu.KaylaKornelis.advancedjava.Assignment5.services.DatabaseStockService;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseInitializationException;
 import edu.KaylaKornelis.advancedjava.Assignment5.util.DatabaseUtils;
 import org.junit.Test;
@@ -32,6 +33,7 @@ public class DatabaseUtilsTest {
      */
     @Test
     public void testGetConnectionWorks() throws Exception{
+        DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
         Connection connection = DatabaseUtils.getConnection();
         Statement statement = connection.createStatement();
         boolean execute = statement.execute("select * from quotes");
