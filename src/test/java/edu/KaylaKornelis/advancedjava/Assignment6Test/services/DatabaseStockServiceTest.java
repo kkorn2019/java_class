@@ -47,8 +47,8 @@ public class DatabaseStockServiceTest {
     @Before
     public void setUp() throws Exception{
         initDb();
-        stockService = ServiceFactory.getStockServiceInstance();
-        //databaseStockService = new DatabaseStockService();
+        //stockService = ServiceFactory.getStockServiceInstance();
+        stockService = new DatabaseStockService();
     }
     
     /**
@@ -59,10 +59,10 @@ public class DatabaseStockServiceTest {
         initDb();
     }
     
-//    @Test
-//    public void testGetInstance() {
-//        assertNotNull("Make sure stockService is available", stockService);
-//    }
+    @Test
+    public void testGetInstance() {
+        assertNotNull("Make sure stockService is available", stockService);
+    }
     
     /** 
      * Test that single quote can be retrieved from the database with the 
