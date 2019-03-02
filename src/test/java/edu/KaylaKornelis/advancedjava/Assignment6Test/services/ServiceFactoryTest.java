@@ -18,7 +18,7 @@ public class ServiceFactoryTest {
     @Test
     public void testGetStockServiceInstance() {
         StockService stockService = ServiceFactory.getStockServiceInstance();
-        assertNotNull(stockService);
+        assertNotNull("Make sure factory works", stockService);
     }
     
     /** 
@@ -28,6 +28,6 @@ public class ServiceFactoryTest {
     @Test
     public void testGetPersonServiceInstance() {
         PersonService personService = ServiceFactory.getPersonServiceInstance();
-        assertNotNull(personService);
+        assertNotNull("Make sure factory works", personService);
     }
 }
