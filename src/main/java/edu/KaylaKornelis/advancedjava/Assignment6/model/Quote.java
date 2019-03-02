@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Models the Quotes table
+ * Models the Quote table
  */
 @Entity
-public class Quotes {
+public class Quote {
 
     private int id;
     private String symbol;
@@ -72,7 +72,7 @@ public class Quotes {
      *
      * @param time a Timestamp value
      */
-    public void setDescription(Timestamp time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -90,7 +90,7 @@ public class Quotes {
      * Specify the price of the stock
      * @param price a BigDecimal value
      */
-    public void setMinimumAge(BigDecimal price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -99,7 +99,7 @@ public class Quotes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Quotes quote = (Quotes) o;
+        Quote quote = (Quote) o;
 
         if (id != quote.id) return false;
         if (price != quote.price) return false;
@@ -121,7 +121,7 @@ public class Quotes {
 
     @Override
     public String toString() {
-        return "Hobby{" +
+        return "Quote{" +
                 "id=" + id +
                 ", symbol='" + symbol + '\'' +
                 ", time='" + time + '\'' +

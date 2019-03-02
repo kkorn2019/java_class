@@ -12,15 +12,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "person_quotes", catalog = "stocks")
-public class PersonQuotes {
+public class PersonQuote {
     private int id;
     private Person person;
-    private Quotes quote;
+    private Quote quote;
 
     /**
      * Create a PersonHobby that needs to be initialized
      */
-    public PersonQuotes() {
+    public PersonQuote() {
         // this empty constructor is required by hibernate framework
 
     }
@@ -31,7 +31,7 @@ public class PersonQuotes {
      * @param person the person to assign the quote to
      * @param quote  the quote to associate the person with
      */
-    public PersonQuotes(Person person, Quotes quote) {
+    public PersonQuote(Person person, Quote quote) {
         setQuote(quote);
         setPerson(person);
     }
@@ -78,11 +78,11 @@ public class PersonQuotes {
 
     /**
      *
-     * @return get the Quotes associated with this Person
+     * @return get the Quote associated with this Person
      */
     @ManyToOne
     @JoinColumn(name = "quote_id", referencedColumnName = "ID", nullable = false)
-    public Quotes getQuote() {
+    public Quote getQuote() {
         return quote;
     }
 
@@ -91,7 +91,7 @@ public class PersonQuotes {
      *
      * @param quote a person instance
      */
-    public void setQuote(Quotes quote) {
+    public void setQuote(Quote quote) {
         this.quote = quote;
     }
 
@@ -100,7 +100,7 @@ public class PersonQuotes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonQuotes that = (PersonQuotes) o;
+        PersonQuote that = (PersonQuote) o;
 
         if (id != that.id) return false;
 
@@ -117,7 +117,7 @@ public class PersonQuotes {
 
     @Override
     public String toString() {
-        return "PersonQuotes{" +
+        return "PersonQuote{" +
                 "id=" + id +
                 ", person=" + person +
                 ", quote=" + quote +

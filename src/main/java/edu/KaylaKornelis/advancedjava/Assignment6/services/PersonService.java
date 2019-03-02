@@ -1,7 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.services;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.Quote;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public interface PersonService {
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    List<Quotes> getQuotes(Person person) throws PersonServiceException;
+    List<Quote> getQuotes(Person person) throws PersonServiceException;
 
     /**
      * Assign a quote to a person.
@@ -45,6 +45,6 @@ public interface PersonService {
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    public void addQuotesToPerson(Quotes quote, Person person) throws PersonServiceException;
+    public void addQuotesToPerson(Quote quote, Person person) throws PersonServiceException;
 
 }

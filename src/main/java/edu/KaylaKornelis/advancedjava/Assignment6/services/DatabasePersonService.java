@@ -1,8 +1,8 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.services;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.PersonQuotes;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.PersonQuote;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.Quote;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,21 +84,21 @@ public class DatabasePersonService implements PersonService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<Quotes> getQuotes(Person person) {
+    public List<Quote> getQuotes(Person person) {
         Session session =  DatabaseUtils.getSessionFactory().openSession();
         Transaction transaction = null;
-        List<Quotes> quotes = new ArrayList<>();
+        List<Quote> quotes = new ArrayList<>();
         try {
             transaction = session.beginTransaction();
-            Criteria criteria = session.createCriteria(PersonQuotes.class);
+            Criteria criteria = session.createCriteria(PersonQuote.class);
             criteria.add(Restrictions.eq("person", person));
             /**
              * NOTE criteria.list(); generates unchecked warning so SuppressWarnings
              * is used - HOWEVER, this about the only @SuppressWarnings I think it is OK
              * to suppress them - in almost all other cases they should be fixed not suppressed
              */
-            List<PersonQuotes> list = criteria.list();
-            for (PersonQuotes personQuotes : list) {
+            List<PersonQuote> list = criteria.list();
+            for (PersonQuote personQuotes : list) {
                 quotes.add(personQuotes.getQuote());
             }
             transaction.commit();
@@ -122,12 +122,12 @@ public class DatabasePersonService implements PersonService {
      * @param person The person to assign the quote too.
      */
     @Override
-    public void addQuotesToPerson(Quotes quote, Person person) throws PersonServiceException {
+    public void addQuotesToPerson(Quote quote, Person person) throws PersonServiceException {
         Session session =  DatabaseUtils.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            PersonQuotes personQuote = new PersonQuotes();
+            PersonQuote personQuote = new PersonQuote();
             personQuote.setQuote(quote);
             personQuote.setPerson(person);
             session.saveOrUpdate(personQuote);

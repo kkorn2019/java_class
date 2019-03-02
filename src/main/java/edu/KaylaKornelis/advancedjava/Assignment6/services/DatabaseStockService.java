@@ -40,7 +40,7 @@ public class DatabaseStockService implements StockService {
     public StockQuote getQuote(String symbol) throws StockServiceException {
         /* todo - this is a pretty lame implementation. why? 
         - needs better exception handling
-        - only returns one stockQuote from the list, when there may be many returned*/
+        - only returns one stockQuote from the list, when there may be many (or none) returned*/
 
         List<StockQuote> stockQuotes = null;
         try {
@@ -82,8 +82,9 @@ public class DatabaseStockService implements StockService {
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) throws StockServiceException {
         
         List<StockQuote> stockQuotes = null;
+        Connection connection = null;
         try {
-            Connection connection = DatabaseUtils.getConnection();
+            connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
             
@@ -103,6 +104,14 @@ public class DatabaseStockService implements StockService {
 
         } catch (DatabaseConnectionException | SQLException exception) {
             throw new StockServiceException(exception.getMessage(), exception);
+        } finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new StockServiceException("Unable to close database connection.");
+                }
+            } 
         }
         if (stockQuotes.isEmpty()) {
             throw new StockServiceException("There is no stock data for:" + symbol + " between " + from + " and " + until
@@ -129,8 +138,9 @@ public class DatabaseStockService implements StockService {
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, IntervalEnum interval) throws StockServiceException {
         
         List<StockQuote> stockQuotes = null;
+        Connection connection = null;
         try {
-            Connection connection = DatabaseUtils.getConnection();
+            connection = DatabaseUtils.getConnection();
             Statement statement = connection.createStatement();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StockData.dateFormat);
             
@@ -161,11 +171,21 @@ public class DatabaseStockService implements StockService {
 
         } catch (DatabaseConnectionException | SQLException exception) {
             throw new StockServiceException(exception.getMessage(), exception);
+            
+        } finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new StockServiceException("Unable to close database connection.");
+                }
+            } 
         }
+        
         if (stockQuotes.isEmpty()) {
             throw new StockServiceException("There is no stock data for:" + symbol + " between " + from + " and " + until
             + ".");
-        }
+        } 
 
         return stockQuotes;
     }
