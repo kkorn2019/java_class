@@ -33,7 +33,7 @@ public class DatabaseStockServiceTest {
      * Declare instance of DatabaseStockService 
      * that can be used throughout this test class
      */
-    private StockService stockService;
+    private DatabaseStockService databaseStockService;
     
     private void initDb() throws Exception {
         DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
@@ -47,7 +47,8 @@ public class DatabaseStockServiceTest {
     @Before
     public void setUp() throws Exception{
         initDb();
-        stockService = ServiceFactory.getStockServiceInstance();
+        //stockService = ServiceFactory.getStockServiceInstance();
+        databaseStockService = new DatabaseStockService();
     }
     
     /**
@@ -58,10 +59,10 @@ public class DatabaseStockServiceTest {
         initDb();
     }
     
-    @Test
-    public void testGetInstance() {
-        assertNotNull("Make sure stockService is available", stockService);
-    }
+//    @Test
+//    public void testGetInstance() {
+//        assertNotNull("Make sure databaseStockService is available", databaseStockService);
+//    }
     
     /** 
      * Test that single quote can be retrieved from the database with the 
@@ -71,7 +72,7 @@ public class DatabaseStockServiceTest {
     @Test
     public void testGetQuote() throws StockServiceException {
         String symbol = "APPL";
-        StockQuote stockQuote = stockService.getQuote(symbol);
+        StockQuote stockQuote = databaseStockService.getQuote(symbol);
         assertNotNull("Verify we can get a stock quote from the db", stockQuote);
         assertEquals("Make sure the symbols match", symbol, stockQuote.getSymbol());
     }
@@ -84,7 +85,7 @@ public class DatabaseStockServiceTest {
     @Test (expected = StockServiceException.class)
     public void testGetQuoteNegative() throws StockServiceException{
         String symbol = "MSFT";
-        StockQuote stockQuote = stockService.getQuote(symbol);
+        StockQuote stockQuote = databaseStockService.getQuote(symbol);
         assertNotNull("Verify we can get a stock quote from the db", stockQuote);
         assertTrue("Ensure no records for the given symbol", stockQuote.getSymbol().isEmpty());
     }
@@ -104,7 +105,7 @@ public class DatabaseStockServiceTest {
         Calendar fromCalendar = convertStringToDate(fromDate);
         Calendar untilCalendar = convertStringToDate(untilDate);
         
-        List<StockQuote> stockQuotes = stockService.getQuote(symbol, fromCalendar, untilCalendar);
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar);
         assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
         assertFalse("Ensure list of stockQuotes is not empty", stockQuotes.isEmpty());
     }
@@ -125,7 +126,7 @@ public class DatabaseStockServiceTest {
         Calendar fromCalendar = convertStringToDate(fromDate);
         Calendar untilCalendar = convertStringToDate(untilDate);
         
-        List<StockQuote> stockQuotes = stockService.getQuote(symbol, fromCalendar, untilCalendar);
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar);
         assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
     }  
     
@@ -144,7 +145,7 @@ public class DatabaseStockServiceTest {
         Calendar fromCalendar = convertStringToDate(fromDate);
         Calendar untilCalendar = convertStringToDate(untilDate);
         
-        List<StockQuote> stockQuotes = stockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
         assertNotNull("Verify we can get a list of stock quotes from the db", stockQuotes);
         assertFalse("Ensure list of stockQuotes is NOT empty", stockQuotes.isEmpty());
     }
@@ -165,7 +166,7 @@ public class DatabaseStockServiceTest {
         Calendar fromCalendar = convertStringToDate(fromDate);
         Calendar untilCalendar = convertStringToDate(untilDate);
         
-        List<StockQuote> stockQuotes = stockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol, fromCalendar, untilCalendar, IntervalEnum.HOUR);
         assertNotNull("Verify we can get a list of stock quotes from the db", stockQuotes);
         assertTrue("Ensure list of stockQuotes is empty", stockQuotes.isEmpty());
     }
