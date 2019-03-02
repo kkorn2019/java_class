@@ -25,7 +25,7 @@ public interface StockService {
      *                               If this happens, trying the service may work, depending on the actual cause of the
      *                               error.
      */
-    StockQuote getQuote(@NotNull String symbol) throws StockServiceException;
+    List<StockQuote> getQuote(@NotNull String symbol) throws StockServiceException;
 
     /**
      * Get a historical list of stock quotes for the provide symbol

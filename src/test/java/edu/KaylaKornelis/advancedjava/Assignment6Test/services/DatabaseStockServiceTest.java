@@ -72,9 +72,9 @@ public class DatabaseStockServiceTest {
     @Test
     public void testGetQuote() throws StockServiceException {
         String symbol = "APPL";
-        StockQuote stockQuote = databaseStockService.getQuote(symbol);
-        assertNotNull("Verify we can get a stock quote from the db", stockQuote);
-        assertEquals("Make sure the symbols match", symbol, stockQuote.getSymbol());
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertEquals("Make sure the symbols match", symbol, stockQuotes.get(0).getSymbol());
     }
     
     /** 
@@ -85,9 +85,9 @@ public class DatabaseStockServiceTest {
     @Test (expected = StockServiceException.class)
     public void testGetQuoteNegative() throws StockServiceException{
         String symbol = "MSFT";
-        StockQuote stockQuote = databaseStockService.getQuote(symbol);
-        assertNotNull("Verify we can get a stock quote from the db", stockQuote);
-        assertTrue("Ensure no records for the given symbol", stockQuote.getSymbol().isEmpty());
+        List<StockQuote> stockQuotes = databaseStockService.getQuote(symbol);
+        assertNotNull("Verify we can get a stock quote from the db", stockQuotes);
+        assertTrue("Ensure no records for the given symbol", stockQuotes.get(0).getSymbol().isEmpty());
     }
     
     /** 

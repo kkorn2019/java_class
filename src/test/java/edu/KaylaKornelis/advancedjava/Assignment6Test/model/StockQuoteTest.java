@@ -3,6 +3,7 @@ package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockData;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuery;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuote;
+import edu.KaylaKornelis.advancedjava.Assignment6.util.IntervalEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -113,7 +114,7 @@ public class StockQuoteTest {
         String symbol = "APPL";
         String from = "2011-10-29 12:12:12";
         String until = "2014-11-29 12:12:12";
-        StockQuery stockQuery = new StockQuery(symbol, from, until);
+        StockQuery stockQuery = new StockQuery(symbol, from, until, IntervalEnum.HOUR);
         StockQuote stockQuoteFromDate = new StockQuote(new BigDecimal(100), stockQuery.getFrom().getTime(), stockQuery.getSymbol());
         assertEquals("Verify toString works correctly", "StockQuote{price=100, date=2011-10-29 12:12:12, symbol='APPL'}", stockQuoteFromDate.toString());
     }

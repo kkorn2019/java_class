@@ -28,9 +28,11 @@ public class SimpleStockService implements StockService {
      *                               error.
      */
     @Override
-    public StockQuote getQuote(@NotNull String symbol) throws StockServiceException {
+    public List<StockQuote> getQuote(@NotNull String symbol) throws StockServiceException {
         // a dead simple implementation.
-        return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
+        List<StockQuote> stockQuotes = new ArrayList<>();
+        stockQuotes.add(new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol));
+        return stockQuotes;
     }
 
     /**

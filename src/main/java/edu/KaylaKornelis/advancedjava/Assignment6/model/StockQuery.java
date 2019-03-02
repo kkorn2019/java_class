@@ -1,5 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.model;
 
+import edu.KaylaKornelis.advancedjava.Assignment6.util.IntervalEnum;
 import org.apache.http.annotation.Immutable;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class StockQuery extends StockData{
     private final String symbol;
     private final Calendar from;
     private final Calendar until;
+    private final IntervalEnum interval;
 
     /**
      * Create a new instance from string data. This constructor will convert
@@ -23,16 +25,18 @@ public class StockQuery extends StockData{
      * @param symbol the stock symbol
      * @param from   the start date as a string in the form of yyyy/MM/dd
      * @param until   the end date as a string in the form of yyyy/MM/dd
+     * @param interval the time frame the user would like quotes for
      * @throws ParseException if the format of the date String is incorrect. If this happens
      *                        the only recourse is to try again with a correctly formatted String.
      */
-    public StockQuery(@NotNull String symbol, @NotNull String from, @NotNull String until) throws ParseException {
+    public StockQuery(@NotNull String symbol, @NotNull String from, @NotNull String until, @NotNull IntervalEnum interval) throws ParseException {
         super();
         this.symbol = symbol;
         this.from = Calendar.getInstance();
         this.until = Calendar.getInstance();
         this.from.setTime(simpleDateFormat.parse(from));
         this.until.setTime(simpleDateFormat.parse(until));
+        this.interval = IntervalEnum.HOUR;
     }
 
     /**
@@ -55,4 +59,12 @@ public class StockQuery extends StockData{
     public Calendar getUntil() {
         return until;
     }
+    
+    /**
+     * @return get the interval to display quotes for
+     */
+    public IntervalEnum getInterval() {
+        return interval;
+    }
+
 }

@@ -122,11 +122,11 @@ public class BasicStockQuoteApplication {
         
         if (args.length != 3) {
             exit(ProgramTerminationStatusEnum.ABNORMAL,
-                    "Please supply 3 arguments a stock symbol, a start date (MM/DD/YYYY) and end date (MM/DD/YYYY)");
+                    "Please supply 4 arguments: a stock symbol, a start date (MM/DD/YYYY) and end date (MM/DD/YYYY), and an interval of time");
         }
         try {
-            
-            StockQuery stockQuery = new StockQuery(args[0], args[1], args[2]);
+            IntervalEnum interval = IntervalEnum.valueOf(args[3]);
+            StockQuery stockQuery = new StockQuery(args[0], args[1], args[2], interval);
             StockService stockService = ServiceFactory.getStockServiceInstance();
             BasicStockQuoteApplication basicStockQuoteApplication =
                     new BasicStockQuoteApplication(stockService);

@@ -2,6 +2,7 @@ package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockData;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuery;
+import edu.KaylaKornelis.advancedjava.Assignment6.util.IntervalEnum;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class StockQueryTest {
      */
     @Test
     public void testBasicConstruction() throws Exception{
-        stockQuery = new StockQuery(symbol,"2011-10-29 12:12:1","2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol,"2011-10-29 12:12:1","2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertEquals("Verify construction", symbol, stockQuery.getSymbol());
     }
     
@@ -41,7 +42,7 @@ public class StockQueryTest {
      */
     @Test
     public void testGetSymbolSuccessful() throws ParseException{
-        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", "2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", "2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertEquals("Verify symbol is correct", symbol, stockQuery.getSymbol());
     }
     
@@ -52,7 +53,7 @@ public class StockQueryTest {
     @Test
     public void testGetSymbolNegative() throws ParseException{
         String testSymbol = "GOOG";
-        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", "2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", "2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertNotEquals("Verify symbol is not correct", testSymbol, stockQuery.getSymbol());
     }
     
@@ -65,7 +66,7 @@ public class StockQueryTest {
         simpleDateFormat = new SimpleDateFormat(dateFormat);
         date = Calendar.getInstance();
         date.setTime(simpleDateFormat.parse(inputDate));
-        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertEquals("Verify from date is correct", date, stockQuery.getFrom());
     }
     
@@ -79,7 +80,7 @@ public class StockQueryTest {
         Date testDate = dateFormatter.parse("2011-10-29 12:12:12");
         Calendar convertedDate = Calendar.getInstance();
         convertedDate.setTime(testDate);
-        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertNotEquals("Verify from date is incorrect", date, stockQuery.getFrom());
     }
     
@@ -92,7 +93,7 @@ public class StockQueryTest {
         simpleDateFormat = new SimpleDateFormat(dateFormat);
         date = Calendar.getInstance();
         date.setTime(simpleDateFormat.parse(inputDate));
-        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", inputDate);
+        stockQuery = new StockQuery(symbol, "2014-10-29 12:12:1", inputDate, IntervalEnum.HOUR);
         assertEquals("Verify from date is correct", date, stockQuery.getUntil());
     }
     
@@ -106,7 +107,7 @@ public class StockQueryTest {
         Date testDate = dateFormatter.parse("2011-10-29 12:12:12");
         Calendar convertedDate = Calendar.getInstance();
         convertedDate.setTime(testDate);
-        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1");
+        stockQuery = new StockQuery(symbol, inputDate, "2014-10-29 12:12:1", IntervalEnum.HOUR);
         assertNotEquals("Verify from date is incorrect", date, stockQuery.getUntil());
     }
 

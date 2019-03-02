@@ -60,7 +60,7 @@ public class BasicStockQuoteApplicationTest {
         String symbol = "APPL";
         String from = "2011-10-29 12:12:12";
         String until = "2014-11-29 12:12:12";
-        StockQuery stockQuery = new StockQuery(symbol, from, until);
+        StockQuery stockQuery = new StockQuery(symbol, from, until, IntervalEnum.HOUR);
 
         List<StockQuote> stockQuotes = new ArrayList<>();
         StockQuote stockQuoteFromDate = new StockQuote(new BigDecimal(100), stockQuery.getFrom().getTime(), stockQuery.getSymbol());

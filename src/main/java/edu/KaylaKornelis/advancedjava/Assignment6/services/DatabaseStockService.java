@@ -37,7 +37,7 @@ public class DatabaseStockService implements StockService {
      * cause of the error.
      */
     @Override
-    public StockQuote getQuote(String symbol) throws StockServiceException {
+    public List<StockQuote> getQuote(String symbol) throws StockServiceException {
         /* todo - this is a pretty lame implementation. why? 
         - needs better exception handling
         - only returns one stockQuote from the list, when there may be many (or none) returned*/
@@ -63,7 +63,7 @@ public class DatabaseStockService implements StockService {
         if (stockQuotes.isEmpty()) {
             throw new StockServiceException("There is no stock data for:" + symbol);
         }
-        return stockQuotes.get(0);
+        return stockQuotes;
     }
     
     /**
