@@ -2,6 +2,7 @@ package edu.KaylaKornelis.advancedjava.Assignment6Test.services;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Quote;
+import edu.KaylaKornelis.advancedjava.Assignment6.services.DatabasePersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
@@ -20,11 +21,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for the DatabaseActivitiesService
+ * Unit tests for the DatabasePersonService
  */
 public class DatabasePersonServiceTest {
 
-    private PersonService personService;
+    private DatabasePersonService databasePersonService;
 
     private void initDb() throws Exception {
         DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
@@ -35,7 +36,7 @@ public class DatabasePersonServiceTest {
     public void setUp() throws Exception {
         // we could also copy db state here for later restore before initializing
         initDb();
-        personService = ServiceFactory.getPersonServiceInstance();
+        databasePersonService = ServiceFactory.getPersonServiceInstance();
     }
 
     // clean up after ourselves. (this could also restore db from initial state
@@ -46,20 +47,20 @@ public class DatabasePersonServiceTest {
 
     @Test
     public void testGetInstance() {
-        assertNotNull("Make sure activitiesService is available", personService);
+        assertNotNull("Make sure activitiesService is available", databasePersonService);
     }
 
     @Test
     public void testGetPerson() throws PersonServiceException {
-        List<Person> personList = personService.getPerson();
+        List<Person> personList = databasePersonService.getPerson();
         assertFalse("Make sure we get some Person objects from service", personList.isEmpty());
     }
 
     @Test
     public void testAddOrUpdatePerson()throws PersonServiceException {
         Person newPerson = PersonTest.createPerson();
-        personService.addOrUpdatePerson(newPerson);
-        List<Person> personList = personService.getPerson();
+        databasePersonService.addOrUpdatePerson(newPerson);
+        List<Person> personList = databasePersonService.getPerson();
         boolean found = false;
         for (Person person : personList) {
             Timestamp returnedBirthDate = person.getBirthDate();
@@ -84,12 +85,12 @@ public class DatabasePersonServiceTest {
     @Test
     public void testGetQuotesByPerson() throws PersonServiceException {
         Person person = PersonTest.createPerson();
-        List<Quote> quotes = personService.getQuotes(person);
+        List<Quote> quotes = databasePersonService.getQuotes(person);
         // make the person have all the quotes
         for (Quote quote : quotes) {
-            personService.addQuotesToPerson(quote, person);
+            databasePersonService.addQuotesToPerson(quote, person);
         }
-        List<Quote> quoteList = personService.getQuotes(person);
+        List<Quote> quoteList = databasePersonService.getQuotes(person);
         for (Quote quote : quotes) {
             boolean removed = quoteList.remove(quote);
             assertTrue("Verify that the quote was found on the list", removed);
