@@ -17,9 +17,9 @@
         <property name="hibernate.connection.username">monty</property>
         <property name="hibernate.connection.password">some_pass</property>
 
-        <mapping class="edu.KaylaKornelis.advancedjava.Assignment6.model.Quote"/>
+        <mapping class="edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes"/>
         <mapping class="edu.KaylaKornelis.advancedjava.Assignment6.model.Person"/>
-        <mapping class="edu.KaylaKornelis.advancedjava.Assignment6.model.PersonQuote"/>
+        <mapping class="edu.KaylaKornelis.advancedjava.Assignment6.model.PersonQuotes"/>
 
 
     </session-factory>

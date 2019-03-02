@@ -22,7 +22,7 @@ public class ServiceFactory {
      *
      * @return get a <CODE>PersonService</CODE> instance
      */
-    public static DatabasePersonService getPersonServiceInstance() {
+    public static PersonService getPersonServiceInstance() {
         return new DatabasePersonService();
     }
 }

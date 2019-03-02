@@ -12,15 +12,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "person_quotes", catalog = "stocks")
-public class PersonQuote {
+public class PersonQuotes {
     private int id;
     private Person person;
-    private Quote quote;
+    private Quotes quote;
 
     /**
      * Create a PersonHobby that needs to be initialized
      */
-    public PersonQuote() {
+    public PersonQuotes() {
         // this empty constructor is required by hibernate framework
 
     }
@@ -31,7 +31,7 @@ public class PersonQuote {
      * @param person the person to assign the quote to
      * @param quote  the quote to associate the person with
      */
-    public PersonQuote(Person person, Quote quote) {
+    public PersonQuotes(Person person, Quotes quote) {
         setQuote(quote);
         setPerson(person);
     }
@@ -78,20 +78,20 @@ public class PersonQuote {
 
     /**
      *
-     * @return get the Quote associated with this Person
+     * @return get the Quotes associated with this Person
      */
     @ManyToOne
     @JoinColumn(name = "quote_id", referencedColumnName = "ID", nullable = false)
-    public Quote getQuote() {
+    public Quotes getQuote() {
         return quote;
     }
 
     /**
-     * Specify the Quote associated with the Person.
+     * Specify the Quotes associated with the Person.
      *
      * @param quote a person instance
      */
-    public void setQuote(Quote quote) {
+    public void setQuote(Quotes quote) {
         this.quote = quote;
     }
 
@@ -100,7 +100,7 @@ public class PersonQuote {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonQuote that = (PersonQuote) o;
+        PersonQuotes that = (PersonQuotes) o;
 
         if (id != that.id) return false;
 

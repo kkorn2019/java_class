@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Models the Quote table
+ * Models the Quotes table
  */
 @Entity
-public class Quote {
+public class Quotes {
 
     private int id;
     private String symbol;
@@ -99,7 +99,7 @@ public class Quote {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Quote quote = (Quote) o;
+        Quotes quote = (Quotes) o;
 
         if (id != quote.id) return false;
         if (price != quote.price) return false;
