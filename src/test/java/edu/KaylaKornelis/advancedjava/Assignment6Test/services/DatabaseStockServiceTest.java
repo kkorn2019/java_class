@@ -3,8 +3,6 @@ package edu.KaylaKornelis.advancedjava.Assignment6Test.services;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockData;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.StockQuote;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.DatabaseStockService;
-import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
-import edu.KaylaKornelis.advancedjava.Assignment6.services.StockService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.StockServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseInitializationException;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
