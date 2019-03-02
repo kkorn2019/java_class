@@ -53,6 +53,11 @@ public class StockQuote extends StockData {
         return symbol;
     }
 
+    /**
+     * This method overrides the toString method to display the attributes of the
+     * StockQuote object as a String
+     * @return String containing attributes of StockQuote object
+     */
     @Override
     public String toString() {
         String dateString = simpleDateFormat.format(date);

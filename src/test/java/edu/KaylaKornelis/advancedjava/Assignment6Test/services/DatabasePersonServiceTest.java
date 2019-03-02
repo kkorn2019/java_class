@@ -2,7 +2,6 @@ package edu.KaylaKornelis.advancedjava.Assignment6Test.services;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
 import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
-import edu.KaylaKornelis.advancedjava.Assignment6.services.DatabasePersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
@@ -25,12 +24,26 @@ import static org.junit.Assert.assertTrue;
  */
 public class DatabasePersonServiceTest {
 
+    /**
+     * Declare instance of PersonService 
+     * that can be used throughout this test class
+     */
     private PersonService personService;
 
+    /** 
+     * Initialize database through DatabaseUtils class and 
+     * initialize databaseStockService variable to a new instance of PersonService class
+     * @throws Exception
+     */
     private void initDb() throws Exception {
         DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
     }
 
+    /** 
+     * Initialize database through DatabaseUtils class and 
+     * initialize databaseStockService variable to a new instance of PersonService class
+     * @throws Exception
+     */
     // do not assume db is correct
     @Before
     public void setUp() throws Exception {
@@ -39,23 +52,38 @@ public class DatabasePersonServiceTest {
         personService = ServiceFactory.getPersonServiceInstance();
     }
 
-    // clean up after ourselves. (this could also restore db from initial state
+    /**
+     * clean up after ourselves. (this could also restore db from initial state)
+     * @throws Exception
+     */
     @After
     public void tearDown() throws Exception {
         initDb();
     }
 
+    /**
+     * test that the personService instance is not null
+     */
     @Test
     public void testGetInstance() {
-        assertNotNull("Make sure activitiesService is available", personService);
+        assertNotNull("Make sure personService is available", personService);
     }
 
+    /** 
+     * Test that person objects can be retrieved from the database with the 
+     * getPerson method
+     * @throws PersonServiceException
+     */
     @Test
     public void testGetPerson() throws PersonServiceException {
         List<Person> personList = personService.getPerson();
         assertFalse("Make sure we get some Person objects from service", personList.isEmpty());
     }
 
+    /** 
+     * Test that a person objects can be added or updated 
+     * @throws PersonServiceException
+     */
     @Test
     public void testAddOrUpdatePerson()throws PersonServiceException {
         Person newPerson = PersonTest.createPerson();
@@ -82,6 +110,11 @@ public class DatabasePersonServiceTest {
         assertTrue("Found the person we added", found);
     }
 
+     /** 
+     * Test that quotes can be correctly returned for a given person
+     * verifies addQuotesToPerson and getQuotes methods
+     * @throws PersonServiceException
+     */
     @Test
     public void testGetQuotesByPerson() throws PersonServiceException {
         Person person = PersonTest.createPerson();

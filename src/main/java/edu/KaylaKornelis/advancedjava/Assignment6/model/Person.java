@@ -94,13 +94,22 @@ public class Person {
         this.birthDate = birthDate;
     }
 
+    /**
+     * This method compares two objects to ensure they are equal
+     */
     @Override
     public boolean equals(Object o) {
+        //if the object is equal to itself, return true
         if (this == o) return true;
+        
+        //check if o is null or is not an instance of this class
+        // if so, return false
         if (o == null || getClass() != o.getClass()) return false;
 
+        //cast o to be of type person 
         Person person = (Person) o;
 
+        //compare each attribute and return true or false result
         if (id != person.id) return false;
         if (birthDate != null ? !birthDate.equals(person.birthDate) : person.birthDate != null)
             return false;
@@ -112,6 +121,10 @@ public class Person {
         return true;
     }
 
+    /**
+     * This method constructs and returns a hashcode value for the person object
+     * @return a hashcode value for the person object 
+     */
     @Override
     public int hashCode() {
         int result = id;
@@ -120,7 +133,12 @@ public class Person {
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         return result;
     }
-
+    
+    /**
+     * This method overrides the toString method to display the attributes of the
+     * person object as a String
+     * @return String containing attributes of person object
+     */
     @Override
     public String toString() {
         return "Person{" +

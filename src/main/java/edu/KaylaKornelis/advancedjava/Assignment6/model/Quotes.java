@@ -94,13 +94,22 @@ public class Quotes {
         this.price = price;
     }
 
+    /**
+     * This method compares two objects to ensure they are equal
+     */
     @Override
     public boolean equals(Object o) {
+        //if the object is equal to itself, return true
         if (this == o) return true;
+        
+        //check if o is null or is not an instance of this class
+        // if so, return false
         if (o == null || getClass() != o.getClass()) return false;
-
+        
+        //cast o to be of type person
         Quotes quote = (Quotes) o;
 
+        //compare each attribute and return true or false result
         if (id != quote.id) return false;
         if (price != quote.price) return false;
         if (time != null ? !time.equals(quote.time) : quote.time != null)
@@ -110,6 +119,10 @@ public class Quotes {
         return true;
     }
 
+    /**
+     * This method constructs and returns a hashcode value for the quotes object
+     * @return a hashcode value for the quotes object 
+     */
     @Override
     public int hashCode() {
         int result = id;
@@ -119,6 +132,11 @@ public class Quotes {
         return result;
     }
 
+    /**
+     * This method overrides the toString method to display the attributes of the
+     * Quote object as a String
+     * @return String containing attributes of Quote object
+     */
     @Override
     public String toString() {
         return "Quote{" +

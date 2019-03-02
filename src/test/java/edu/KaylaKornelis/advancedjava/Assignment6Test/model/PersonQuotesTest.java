@@ -12,19 +12,19 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test for PersonHobby class
+ * Unit test for PersonQuotes class
  */
-public class PersonQuoteTest {
+public class PersonQuotesTest {
 
     /**
-     * Testing helper method for generating PersonHobby test data
+     * Testing helper method for generating PersonQuotes test data
      *
-     * @return a PersonHobby object that uses Person and Hobby
+     * @return a PersonQuotes object that uses Person and Quotes
      * return from their respective create method.
      */
     public static PersonQuotes createPersonQuote() {
         Person person = PersonTest.createPerson();
-        Quotes quote = QuoteTest.createQuote();
+        Quotes quote = QuotesTest.createQuote();
         return new PersonQuotes(person, quote);
     }
 
@@ -33,7 +33,7 @@ public class PersonQuoteTest {
      */
     @Test
     public void testPersonQuoteGetterAndSetters() {
-        Quotes quote = QuoteTest.createQuote();
+        Quotes quote = QuotesTest.createQuote();
         Person person = PersonTest.createPerson();
         PersonQuotes personQuote = new PersonQuotes();
         int id = 10;
@@ -53,7 +53,7 @@ public class PersonQuoteTest {
     public void testEqualsNegativeDifferentPerson() {
         PersonQuotes personQuote = createPersonQuote();
         personQuote.setId(10);
-        Quotes quote = QuoteTest.createQuote();
+        Quotes quote = QuotesTest.createQuote();
         Person person = new Person();
         Timestamp birthDate = new Timestamp(PersonTest.birthDayCalendar.getTimeInMillis() + 10000);
         person.setBirthDate(birthDate);
@@ -83,9 +83,9 @@ public class PersonQuoteTest {
         PersonQuotes personQuote = createPersonQuote();
         assertTrue("toString has lastName", personQuote.toString().contains(PersonTest.lastName));
         assertTrue("toString has person", personQuote.toString().contains(PersonTest.firstName));
-        assertTrue("toString has symbol", personQuote.toString().contains(QuoteTest.symbol));
-        assertTrue("toString has time", personQuote.toString().contains(QuoteTest.time.toString()));
-        assertTrue("toString has price", personQuote.toString().contains(QuoteTest.price.toString()));
+        assertTrue("toString has symbol", personQuote.toString().contains(QuotesTest.symbol));
+        assertTrue("toString has time", personQuote.toString().contains(QuotesTest.time.toString()));
+        assertTrue("toString has price", personQuote.toString().contains(QuotesTest.price.toString()));
     }
 
 }

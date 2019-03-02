@@ -95,18 +95,30 @@ public class PersonQuotes {
         this.quote = quote;
     }
 
+    /**
+     * This method compares two objects to ensure they are equal
+     */
     @Override
     public boolean equals(Object o) {
+        //if the object is equal to itself, return true
         if (this == o) return true;
+        
+        //check if o is null or is not an instance of this class
+        // if so, return false
         if (o == null || getClass() != o.getClass()) return false;
-
+        //cast o to be of type PersonQuotes
         PersonQuotes that = (PersonQuotes) o;
 
+        //compare each attribute and return true or false result
         if (id != that.id) return false;
 
         return true;
     }
 
+    /**
+     * This method constructs and returns a hashcode value for the personquotes object
+     * @return a hashcode value for the personquotes object 
+     */
     @Override
     public int hashCode() {
         int result = id;
@@ -115,6 +127,11 @@ public class PersonQuotes {
         return result;
     }
 
+    /**
+     * This method overrides the toString method to display the attributes of the
+     * PersonQuote object as a String
+     * @return String containing attributes of PersonQuote object
+     */
     @Override
     public String toString() {
         return "PersonQuote{" +

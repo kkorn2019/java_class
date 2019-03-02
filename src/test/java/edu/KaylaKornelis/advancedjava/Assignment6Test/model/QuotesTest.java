@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test for Quotes class
  */
-public class QuoteTest {
+public class QuotesTest {
     
     public  static final Calendar timeStampCalendar = Calendar.getInstance();
 

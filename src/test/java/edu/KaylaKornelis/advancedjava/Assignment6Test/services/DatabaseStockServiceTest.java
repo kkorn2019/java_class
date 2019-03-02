@@ -47,7 +47,6 @@ public class DatabaseStockServiceTest {
     @Before
     public void setUp() throws Exception{
         initDb();
-        //stockService = ServiceFactory.getStockServiceInstance();
         databaseStockService = new DatabaseStockService();
     }
     
@@ -59,6 +58,9 @@ public class DatabaseStockServiceTest {
         initDb();
     }
     
+    /**
+     * test that the personService instance is not null
+     */
     @Test
     public void testGetInstance() {
         assertNotNull("Make sure databaseStockService is available", databaseStockService);
