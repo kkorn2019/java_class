@@ -1,5 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.model.database;
 
+import edu.KaylaKornelis.advancedjava.Assignment7.Xml.Stock;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,14 @@ import javax.persistence.Table;
 public class StockSymbolDAO implements DatabasesAccessObject {
     private int id;
     private String symbol;
+    
+    public StockSymbolDAO(){
+        
+    }
+    
+    public StockSymbolDAO(Stock stock){
+        
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)

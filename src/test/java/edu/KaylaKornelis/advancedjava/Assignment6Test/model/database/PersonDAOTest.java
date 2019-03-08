@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
+package edu.KaylaKornelis.advancedjava.Assignment6Test.model.database;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
 import org.junit.Test;

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlValue;
     "content"
 })
 @XmlRootElement(name = "stock")
-public class Stock implements XmlDomainObject {
+public class Stock implements XMLDomainObject {
 
     @XmlValue
     protected String content;

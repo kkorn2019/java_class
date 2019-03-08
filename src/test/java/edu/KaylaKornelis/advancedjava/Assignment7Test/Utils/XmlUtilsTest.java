@@ -1,6 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment7Test.Utils;
 
-import edu.KaylaKornelis.advancedjava.Assignment7.Util.XmlUtils;
+
+import edu.KaylaKornelis.advancedjava.Assignment7.Util.XMLUtils;
 import edu.KaylaKornelis.advancedjava.Assignment7.Xml.Stocks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,9 +12,9 @@ import org.junit.Test;
  */
 public class XmlUtilsTest {
 
-    private static String STOCK_ID = "stock1";
-
-    private static String xmlStocks = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    private static String STOCK_SYMBOL_INDEX0 = "VNET";
+    private static String xmlStocks = 
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<stocks>\n" +
             "    <stock symbol=\"VNET\" price=\"110.10\" time=\"2015-02-10 00:00:01\"/>\n" +
             "    <stock symbol=\"AGTK\" price=\"120.10\" time=\"2015-02-10 00:00:01\"/>\n" +
@@ -68,29 +69,26 @@ public class XmlUtilsTest {
 
     @Test
     public void testUnmarshal() throws Exception {
-        Stocks stocks = XmlUtils.unmarshall(xmlStocks, Stocks.class);
-        System.out.println(stocks);
+        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class);
         validateStocks(stocks);
     }
 
     @Test
     public void testUnmarshallWithSchemaValidation()throws Exception {
-        Stocks stocks = XmlUtils.unmarshal(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
+        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
         validateStocks(stocks);
     }
 
     @Test
     public void testMarshal() throws Exception {
-        Stocks stocks = XmlUtils.unmarshal(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
-        System.out.println(xmlStocks);
-        String xml = XmlUtils.marshal(stocks);
-        System.out.println(xml);
+        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
+        String xml = XMLUtils.marshall(stocks);
         // input xml should be the same as output xml
-        //assertEquals("XML out is correct", xml.trim(), xmlStocks.trim());
+        assertEquals("XML out is correct", xml.trim(), xmlStocks.trim());
     }
 
     private void validateStocks(Stocks stocks) {
-        assertTrue("Stock Id is correct", stocks.getStock().getContent().equals(STOCK_ID));
+        assertTrue("Stock symbol is correct", stocks.getStock().get(0).getSymbol().equals(STOCK_SYMBOL_INDEX0));
     }
 
 

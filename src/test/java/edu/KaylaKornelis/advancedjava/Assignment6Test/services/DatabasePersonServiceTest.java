@@ -6,7 +6,7 @@ import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
-import edu.KaylaKornelis.advancedjava.Assignment6Test.model.PersonDAOTest;
+import edu.KaylaKornelis.advancedjava.Assignment6Test.model.database.PersonDAOTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment7.Xml;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -30,10 +32,10 @@ import javax.xml.bind.annotation.XmlType;
     "stock"
 })
 @XmlRootElement(name = "stocks")
-public class Stocks implements XmlDomainObject {
+public class Stocks implements XMLDomainObject {
 
     @XmlElement(required = true)
-    protected Stock stock;
+    protected List<Stock> stock;
 
     /**
      * Gets the value of the stock property.
@@ -43,26 +45,22 @@ public class Stocks implements XmlDomainObject {
      *     {@link Stock }
      *     
      */
-    public Stock getStock() {
+    public List<Stock> getStock() {
+        if (stock == null) {
+            stock = new ArrayList<Stock>();
+        }
         return stock;
     }
 
-    /**
-     * Sets the value of the stock property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Stock }
-     *     
-     */
-    public void setStock(Stock value) {
-        this.stock = value;
-    }
 
     @Override
     public String toString() {
-        return "Stock{" +
+        String returnValue = "";
+        for (int x = 0; x < stock.size(); x++){
+            returnValue = returnValue.concat("Stock{" +
                 "stock=" + stock +
-                '}';
+                '}');
+        }
+        return returnValue;
     }
 }

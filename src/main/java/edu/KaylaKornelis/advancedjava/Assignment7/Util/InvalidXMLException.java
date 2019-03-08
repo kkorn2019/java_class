@@ -3,7 +3,7 @@ package edu.KaylaKornelis.advancedjava.Assignment7.Util;
 /**
  *  Used to signal invalid XML or other JAXB related issues.
  */
-public class InvalidXmlException extends Exception{
+public class InvalidXMLException extends Exception{
 
     /**
      * Constructs a new exception with the specified detail message,
@@ -14,7 +14,7 @@ public class InvalidXmlException extends Exception{
      * @param cause              the cause.  (A {@code null} value is permitted,
      *                           and indicates that the cause is nonexistent or unknown.)
      */
-    protected InvalidXmlException(String message, Throwable cause) {
+    protected InvalidXMLException(String message, Throwable cause) {
         super(message, cause);
     }
 }
