@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment6.model;
+package edu.KaylaKornelis.advancedjava.Assignment6.model.database;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Models the Quotes table
+ * Models the QuotesDAO table
  */
 @Entity
-public class Quotes {
+public class QuotesDAO implements DatabasesAccessObject {
 
     private int id;
     private String symbol;
@@ -107,7 +107,7 @@ public class Quotes {
         if (o == null || getClass() != o.getClass()) return false;
         
         //cast o to be of type person
-        Quotes quote = (Quotes) o;
+        QuotesDAO quote = (QuotesDAO) o;
 
         //compare each attribute and return true or false result
         if (id != quote.id) return false;

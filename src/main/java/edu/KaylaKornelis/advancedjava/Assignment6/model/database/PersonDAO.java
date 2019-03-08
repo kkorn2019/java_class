@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment6.model;
+package edu.KaylaKornelis.advancedjava.Assignment6.model.database;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -8,11 +8,11 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Models the Person table
+ * Models the PersonDAO table
  */
 @Entity
 @Table(name="person")
-public class Person {
+public class PersonDAO implements DatabasesAccessObject {
 
     private int id;
     private String firstName;
@@ -107,7 +107,7 @@ public class Person {
         if (o == null || getClass() != o.getClass()) return false;
 
         //cast o to be of type person 
-        Person person = (Person) o;
+        PersonDAO person = (PersonDAO) o;
 
         //compare each attribute and return true or false result
         if (id != person.id) return false;

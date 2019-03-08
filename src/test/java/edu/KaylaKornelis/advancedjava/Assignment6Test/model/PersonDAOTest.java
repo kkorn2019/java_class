@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test for the Person class
+ * Unit test for the PersonDAO class
  */
-public class PersonTest {
+public class PersonDAOTest {
 
     public  static final Calendar birthDayCalendar = Calendar.getInstance();
 
@@ -26,12 +26,12 @@ public class PersonTest {
     public static final Timestamp birthDate = new Timestamp(birthDayCalendar.getTimeInMillis());
 
     /**
-     * Testing helper method for generating Person test data
+     * Testing helper method for generating PersonDAO test data
      *
-     * @return a Person object that uses static constants for data.
+     * @return a PersonDAO object that uses static constants for data.
      */
-    public static Person createPerson() {
-        Person person = new Person();
+    public static PersonDAO createPerson() {
+        PersonDAO person = new PersonDAO();
         person.setBirthDate(birthDate);
         person.setFirstName(firstName);
         person.setLastName(lastName);
@@ -39,11 +39,11 @@ public class PersonTest {
     }
 
     /** 
-     * Test that setters and getters in the Person class are working correctly.
+     * Test that setters and getters in the PersonDAO class are working correctly.
      */
     @Test
     public void testPersonGettersAndSetters() {
-        Person person = createPerson();
+        PersonDAO person = createPerson();
         int id = 10;
         person.setId(id);
         assertEquals("first name matches", firstName, person.getFirstName());
@@ -59,17 +59,17 @@ public class PersonTest {
      */
     @Test
     public void testEquals() {
-        Person person = createPerson();
+        PersonDAO person = createPerson();
         assertTrue("Same objects are equal", person.equals(createPerson()));
     }
     
     /**
-     * Test that the toString method in Person returns the expected value
+     * Test that the toString method in PersonDAO returns the expected value
      * @throws Exception 
      */
     @Test
     public void testToString() throws Exception{
-        Person person = createPerson();
+        PersonDAO person = createPerson();
         assertEquals("Verify toString works correctly", "Person{id=0, firstName='" + firstName + "', lastName='" + lastName + "', birthDate=" + birthDate + "}", person.toString());
     }
 

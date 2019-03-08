@@ -1,31 +1,31 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.QuotesDAO;
 import java.util.List;
 
 /**
- * This API is used to read records in the Person table of the stocks database.
+ * This API is used to read records in the PersonDAO table of the stocks database.
  */
 public interface PersonService {
     
     /**
      * Get a list of all people
      *
-     * @return a list of Person instances
+     * @return a list of PersonDAO instances
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    List<Person> getPerson() throws PersonServiceException;
+    List<PersonDAO> getPerson() throws PersonServiceException;
 
     /**
-     * Add a new person or update an existing Person's data
+     * Add a new person or update an existing PersonDAO's data
      *
      * @param person a person object to either update or create
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    void addOrUpdatePerson(Person person) throws PersonServiceException;
+    void addOrUpdatePerson(PersonDAO person) throws PersonServiceException;
 
     /**
      * Get a list of all a person's quotes.
@@ -35,7 +35,7 @@ public interface PersonService {
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    List<Quotes> getQuotes(Person person) throws PersonServiceException;
+    List<QuotesDAO> getQuotes(PersonDAO person) throws PersonServiceException;
 
     /**
      * Assign a quote to a person.
@@ -45,6 +45,6 @@ public interface PersonService {
      * @throws PersonServiceException if a service can not read or write the requested data
      *                                    or otherwise perform the requested operation.
      */
-    public void addQuotesToPerson(Quotes quote, Person person) throws PersonServiceException;
+    public void addQuotesToPerson(QuotesDAO quote, PersonDAO person) throws PersonServiceException;
 
 }

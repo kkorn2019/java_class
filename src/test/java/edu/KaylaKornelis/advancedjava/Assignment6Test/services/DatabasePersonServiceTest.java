@@ -1,12 +1,12 @@
 package edu.KaylaKornelis.advancedjava.Assignment6Test.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.QuotesDAO;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
-import edu.KaylaKornelis.advancedjava.Assignment6Test.model.PersonTest;
+import edu.KaylaKornelis.advancedjava.Assignment6Test.model.PersonDAOTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,7 +76,7 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testGetPerson() throws PersonServiceException {
-        List<Person> personList = personService.getPerson();
+        List<PersonDAO> personList = personService.getPerson();
         assertFalse("Make sure we get some Person objects from service", personList.isEmpty());
     }
 
@@ -86,23 +86,23 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testAddOrUpdatePerson()throws PersonServiceException {
-        Person newPerson = PersonTest.createPerson();
+        PersonDAO newPerson = PersonDAOTest.createPerson();
         personService.addOrUpdatePerson(newPerson);
-        List<Person> personList = personService.getPerson();
+        List<PersonDAO> personList = personService.getPerson();
         boolean found = false;
-        for (Person person : personList) {
+        for (PersonDAO person : personList) {
             Timestamp returnedBirthDate = person.getBirthDate();
             Calendar returnCalendar = Calendar.getInstance();
             returnCalendar.setTimeInMillis(returnedBirthDate.getTime());
-            if (returnCalendar.get(Calendar.MONTH) == PersonTest.birthDayCalendar.get(Calendar.MONTH)
+            if (returnCalendar.get(Calendar.MONTH) == PersonDAOTest.birthDayCalendar.get(Calendar.MONTH)
                     &&
-                    returnCalendar.get(Calendar.YEAR) == PersonTest.birthDayCalendar.get(Calendar.YEAR)
+                    returnCalendar.get(Calendar.YEAR) == PersonDAOTest.birthDayCalendar.get(Calendar.YEAR)
                     &&
-                    returnCalendar.get(Calendar.DAY_OF_MONTH) == PersonTest.birthDayCalendar.get(Calendar.DAY_OF_MONTH)
+                    returnCalendar.get(Calendar.DAY_OF_MONTH) == PersonDAOTest.birthDayCalendar.get(Calendar.DAY_OF_MONTH)
                     &&
-                    person.getLastName().equals(PersonTest.lastName)
+                    person.getLastName().equals(PersonDAOTest.lastName)
                     &&
-                    person.getFirstName().equals(PersonTest.firstName)) {
+                    person.getFirstName().equals(PersonDAOTest.firstName)) {
                 found = true;
                 break;
             }
@@ -117,14 +117,14 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testGetQuotesByPerson() throws PersonServiceException {
-        Person person = PersonTest.createPerson();
-        List<Quotes> quotes = personService.getQuotes(person);
+        PersonDAO person = PersonDAOTest.createPerson();
+        List<QuotesDAO> quotes = personService.getQuotes(person);
         // make the person have all the quotes
-        for (Quotes quote : quotes) {
+        for (QuotesDAO quote : quotes) {
             personService.addQuotesToPerson(quote, person);
         }
-        List<Quotes> quoteList = personService.getQuotes(person);
-        for (Quotes quote : quotes) {
+        List<QuotesDAO> quoteList = personService.getQuotes(person);
+        for (QuotesDAO quote : quotes) {
             boolean removed = quoteList.remove(quote);
             assertTrue("Verify that the quote was found on the list", removed);
         }
