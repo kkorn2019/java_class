@@ -13,6 +13,7 @@ import org.junit.Test;
 public class XmlUtilsTest {
 
     private static String STOCK_SYMBOL_INDEX0 = "VNET";
+    private static String xmlFilePath = "./src/main/resources/xml/stock_info.xml";
     private static String xmlStocks = 
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<stocks>\n" +
@@ -69,19 +70,19 @@ public class XmlUtilsTest {
 
     @Test
     public void testUnmarshal() throws Exception {
-        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class);
+        Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class);
         validateStocks(stocks);
     }
 
     @Test
     public void testUnmarshallWithSchemaValidation()throws Exception {
-        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
+        Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class, "/xml/stock_info.xsd");
         validateStocks(stocks);
     }
 
     @Test
     public void testMarshal() throws Exception {
-        Stocks stocks = XMLUtils.unmarshall(xmlStocks, Stocks.class, "/xml/stock_info.xsd");
+        Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class, "/xml/stock_info.xsd");
         String xml = XMLUtils.marshall(stocks);
         // input xml should be the same as output xml
         assertEquals("XML out is correct", xml.trim(), xmlStocks.trim());

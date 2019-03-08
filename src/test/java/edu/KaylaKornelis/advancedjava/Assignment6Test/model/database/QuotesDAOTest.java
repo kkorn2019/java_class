@@ -1,6 +1,6 @@
 package edu.KaylaKornelis.advancedjava.Assignment6Test.model.database;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.QuotesDAO;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test for QuotesDAO class
+ * Unit test for Quotes class
  */
 public class QuotesDAOTest {
     
@@ -25,12 +25,12 @@ public class QuotesDAOTest {
     final static BigDecimal price = new BigDecimal(100);
 
     /**
-     * Testing helper method for generating QuotesDAO test data
+     * Testing helper method for generating Quotes test data
      *
-     * @return a QuotesDAO object that uses static constants for data.
+     * @return a Quotes object that uses static constants for data.
      */
-    public static QuotesDAO createQuote() {
-        QuotesDAO quote = new QuotesDAO();
+    public static Quotes createQuote() {
+        Quotes quote = new Quotes();
         quote.setSymbol(symbol);
         quote.setTime(time);
         quote.setPrice(price);
@@ -38,11 +38,11 @@ public class QuotesDAOTest {
     }
 
     /** 
-     * Test that setters and getters in the QuotesDAO class are working correctly.
+     * Test that setters and getters in the Quotes class are working correctly.
      */
     @Test
     public void testQuoteSettersAndGetters() {
-        QuotesDAO quote = createQuote();
+        Quotes quote = createQuote();
         int id = 10;
         quote.setId(id);
         assertEquals("Symbol", symbol, quote.getSymbol());
@@ -53,22 +53,22 @@ public class QuotesDAOTest {
     }
     
     /** 
-     * Test that two separate instances of QuotesDAO class can be created and 
+     * Test that two separate instances of Quotes class can be created and 
  verify that they are the same.
      */
     @Test
     public void testEquals() {
-        QuotesDAO quote = createQuote();
+        Quotes quote = createQuote();
         assertTrue("Same objects are equal", quote.equals(createQuote()));
     }
     
     /**
-     * Test that the toString method in QuotesDAO returns the expected value
+     * Test that the toString method in Quotes returns the expected value
      * @throws Exception 
      */
     @Test
     public void testToString() throws Exception{
-        QuotesDAO quote = createQuote();
+        Quotes quote = createQuote();
         System.out.println(quote.toString());
         assertEquals("Verify toString works correctly", "Quote{id=0, symbol='" + symbol + "', time='" + time + "', price=" + price + "}", quote.toString());
         

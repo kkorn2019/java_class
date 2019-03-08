@@ -1,8 +1,8 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonQuotesDAO;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.QuotesDAO;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Person;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonQuotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +18,17 @@ public class DatabasePersonService implements PersonService {
     /**
      * Get a list of all people
      *
-     * @return a list of PersonDAO instances
+     * @return a list of Person instances
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<PersonDAO> getPerson() throws PersonServiceException{
+    public List<Person> getPerson() throws PersonServiceException{
         Session session = DatabaseUtils.getSessionFactory().openSession();
-        List<PersonDAO> returnValue = null;
+        List<Person> returnValue = null;
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Criteria criteria = session.createCriteria(PersonDAO.class);
+            Criteria criteria = session.createCriteria(Person.class);
 
             /**
              * NOTE criteria.list(); generates unchecked warning so SuppressWarnings
@@ -53,12 +53,12 @@ public class DatabasePersonService implements PersonService {
     }
 
     /**
-     * Add a new person or update an existing PersonDAO's data
+     * Add a new person or update an existing Person's data
      *
      * @param person a person object to either update or create
      */
     @Override
-    public void addOrUpdatePerson(PersonDAO person) {
+    public void addOrUpdatePerson(Person person) {
         Session session = DatabaseUtils.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -84,21 +84,21 @@ public class DatabasePersonService implements PersonService {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<QuotesDAO> getQuotes(PersonDAO person) {
+    public List<Quotes> getQuotes(Person person) {
         Session session =  DatabaseUtils.getSessionFactory().openSession();
         Transaction transaction = null;
-        List<QuotesDAO> quotes = new ArrayList<>();
+        List<Quotes> quotes = new ArrayList<>();
         try {
             transaction = session.beginTransaction();
-            Criteria criteria = session.createCriteria(PersonQuotesDAO.class);
+            Criteria criteria = session.createCriteria(PersonQuotes.class);
             criteria.add(Restrictions.eq("person", person));
             /**
              * NOTE criteria.list(); generates unchecked warning so SuppressWarnings
              * is used - HOWEVER, this about the only @SuppressWarnings I think it is OK
              * to suppress them - in almost all other cases they should be fixed not suppressed
              */
-            List<PersonQuotesDAO> list = criteria.list();
-            for (PersonQuotesDAO personQuotes : list) {
+            List<PersonQuotes> list = criteria.list();
+            for (PersonQuotes personQuotes : list) {
                 quotes.add(personQuotes.getQuote());
             }
             transaction.commit();
@@ -122,12 +122,12 @@ public class DatabasePersonService implements PersonService {
      * @param person The person to assign the quote too.
      */
     @Override
-    public void addQuotesToPerson(QuotesDAO quote, PersonDAO person) throws PersonServiceException {
+    public void addQuotesToPerson(Quotes quote, Person person) throws PersonServiceException {
         Session session =  DatabaseUtils.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            PersonQuotesDAO personQuote = new PersonQuotesDAO();
+            PersonQuotes personQuote = new PersonQuotes();
             personQuote.setQuote(quote);
             personQuote.setPerson(person);
             session.saveOrUpdate(personQuote);

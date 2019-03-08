@@ -58,7 +58,7 @@ public class Stocks implements XMLDomainObject {
         String returnValue = "";
         for (int x = 0; x < stock.size(); x++){
             returnValue = returnValue.concat("Stock{" +
-                "stock=" + stock +
+                "stock=" + stock.get(x) +
                 '}');
         }
         return returnValue;

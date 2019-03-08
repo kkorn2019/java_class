@@ -1,7 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment6Test.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.PersonDAO;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.database.QuotesDAO;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Person;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonService;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.PersonServiceException;
 import edu.KaylaKornelis.advancedjava.Assignment6.services.ServiceFactory;
@@ -76,7 +76,7 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testGetPerson() throws PersonServiceException {
-        List<PersonDAO> personList = personService.getPerson();
+        List<Person> personList = personService.getPerson();
         assertFalse("Make sure we get some Person objects from service", personList.isEmpty());
     }
 
@@ -86,11 +86,11 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testAddOrUpdatePerson()throws PersonServiceException {
-        PersonDAO newPerson = PersonDAOTest.createPerson();
+        Person newPerson = PersonDAOTest.createPerson();
         personService.addOrUpdatePerson(newPerson);
-        List<PersonDAO> personList = personService.getPerson();
+        List<Person> personList = personService.getPerson();
         boolean found = false;
-        for (PersonDAO person : personList) {
+        for (Person person : personList) {
             Timestamp returnedBirthDate = person.getBirthDate();
             Calendar returnCalendar = Calendar.getInstance();
             returnCalendar.setTimeInMillis(returnedBirthDate.getTime());
@@ -117,14 +117,14 @@ public class DatabasePersonServiceTest {
      */
     @Test
     public void testGetQuotesByPerson() throws PersonServiceException {
-        PersonDAO person = PersonDAOTest.createPerson();
-        List<QuotesDAO> quotes = personService.getQuotes(person);
+        Person person = PersonDAOTest.createPerson();
+        List<Quotes> quotes = personService.getQuotes(person);
         // make the person have all the quotes
-        for (QuotesDAO quote : quotes) {
+        for (Quotes quote : quotes) {
             personService.addQuotesToPerson(quote, person);
         }
-        List<QuotesDAO> quoteList = personService.getQuotes(person);
-        for (QuotesDAO quote : quotes) {
+        List<Quotes> quoteList = personService.getQuotes(person);
+        for (Quotes quote : quotes) {
             boolean removed = quoteList.remove(quote);
             assertTrue("Verify that the quote was found on the list", removed);
         }

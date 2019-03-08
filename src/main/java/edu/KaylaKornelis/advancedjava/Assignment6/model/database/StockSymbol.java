@@ -12,15 +12,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "stock_symbol", schema = "", catalog = "stocks")
-public class StockSymbolDAO implements DatabasesAccessObject {
+public class StockSymbol implements DatabasesAccessObject {
     private int id;
     private String symbol;
     
-    public StockSymbolDAO(){
+    public StockSymbol(){
         
     }
     
-    public StockSymbolDAO(Stock stock){
+    public StockSymbol(Stock stock){
         
     }
 
@@ -49,7 +49,7 @@ public class StockSymbolDAO implements DatabasesAccessObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StockSymbolDAO that = (StockSymbolDAO) o;
+        StockSymbol that = (StockSymbol) o;
 
         if (id != that.id) return false;
         if (symbol != null ? !symbol.equals(that.symbol) : that.symbol != null) return false;

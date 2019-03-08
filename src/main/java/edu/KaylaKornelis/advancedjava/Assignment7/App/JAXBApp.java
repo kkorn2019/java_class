@@ -1,7 +1,19 @@
 package edu.KaylaKornelis.advancedjava.Assignment7.App;
 
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseConnectionException;
+import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
 import edu.KaylaKornelis.advancedjava.Assignment7.Xml.Stocks;
-import java.io.StringReader;
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -12,6 +24,7 @@ import javax.xml.bind.Unmarshaller;
  */
 public class JAXBApp {
 
+    private static String xmlFilePath = "./src/main/resources/xml/stock_info.xml";
     private static String xmlInstance =
             "<stocks>\n" +
             "    <stock symbol=\"VNET\" price=\"110.10\" time=\"2015-02-10 00:00:01\"/>\n" +
@@ -66,12 +79,40 @@ public class JAXBApp {
             "</stocks>";
 
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, SQLException {
 
         // here is how to go from XML to Java
         JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(xmlInstance));
+        Stocks stocks = (Stocks) unmarshaller.unmarshal(new File(xmlFilePath));
+        
+        //still not sure how to implement the jaxb classes with the database
+       // Stock stock;
+        
+        Connection connection = null;
+        try {
+            connection = DatabaseUtils.getConnection();
+        
+        Statement statement = connection.createStatement();
+        StringBuilder stringBuilder = new StringBuilder();
+            
+        for (int i = 0; i < stocks.getStock().size(); i++){
+            Quotes quotes = new Quotes(stocks.getStock().get(i));
+            stringBuilder.append("INSERT INTO quotes (symbol,time,price) VALUES ('")
+                       .append(quotes.getSymbol())
+                       .append("','")
+                       .append(convertTimestampToString(quotes.getTime()))
+                       .append("','")
+                       .append(convertBigDecimalToString(quotes.getPrice()))
+                       .append("'); ");
+        }
+        System.out.println(stringBuilder.toString());
+        
+        statement.executeUpdate(stringBuilder.toString());
+        } catch (DatabaseConnectionException ex) {
+            Logger.getLogger(JAXBApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         System.out.println(stocks.toString());
 
         // here is how to go from Java to XML
@@ -81,5 +122,24 @@ public class JAXBApp {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(stocks, System.out);
 
+    }
+    
+    public static String convertTimestampToString(Timestamp dateEntered){
+        /**
+         * Create a new instance of SimpleDateFormat that will be used to 
+         * parse the string arguments to obtain desired start and end dates
+         */
+        Date inputDate = dateEntered;
+        SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String convertedDate = simpleDateFormatter.format(inputDate);
+            
+        return convertedDate;
+    }
+    
+    public static String convertBigDecimalToString(BigDecimal priceEntered){
+        
+        String convertedPrice = priceEntered.toString();
+        
+        return convertedPrice;
     }
 }

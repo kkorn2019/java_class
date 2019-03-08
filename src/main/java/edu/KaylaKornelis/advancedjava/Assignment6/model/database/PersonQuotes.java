@@ -12,15 +12,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "person_quotes", catalog = "stocks")
-public class PersonQuotesDAO implements DatabasesAccessObject {
+public class PersonQuotes implements DatabasesAccessObject {
     private int id;
-    private PersonDAO person;
-    private QuotesDAO quote;
+    private Person person;
+    private Quotes quote;
 
     /**
      * Create a PersonHobby that needs to be initialized
      */
-    public PersonQuotesDAO() {
+    public PersonQuotes() {
         // this empty constructor is required by hibernate framework
 
     }
@@ -31,7 +31,7 @@ public class PersonQuotesDAO implements DatabasesAccessObject {
      * @param person the person to assign the quote to
      * @param quote  the quote to associate the person with
      */
-    public PersonQuotesDAO(PersonDAO person, QuotesDAO quote) {
+    public PersonQuotes(Person person, Quotes quote) {
         setQuote(quote);
         setPerson(person);
     }
@@ -59,39 +59,39 @@ public class PersonQuotesDAO implements DatabasesAccessObject {
 
     /**
      *
-     * @return get the PersonDAO associated with this hobby
+     * @return get the Person associated with this hobby
      */
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "ID", nullable = false)
-    public PersonDAO getPerson() {
+    public Person getPerson() {
         return person;
     }
 
     /**
-     * Specify the PersonDAO associated with the hobby.
+     * Specify the Person associated with the hobby.
      *
      * @param person a person instance
      */
-    public void setPerson(PersonDAO person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
     /**
      *
-     * @return get the QuotesDAO associated with this PersonDAO
+     * @return get the Quotes associated with this Person
      */
     @ManyToOne
     @JoinColumn(name = "quote_id", referencedColumnName = "ID", nullable = false)
-    public QuotesDAO getQuote() {
+    public Quotes getQuote() {
         return quote;
     }
 
     /**
-     * Specify the QuotesDAO associated with the PersonDAO.
+     * Specify the Quotes associated with the Person.
      *
      * @param quote a person instance
      */
-    public void setQuote(QuotesDAO quote) {
+    public void setQuote(Quotes quote) {
         this.quote = quote;
     }
 
@@ -106,8 +106,8 @@ public class PersonQuotesDAO implements DatabasesAccessObject {
         //check if o is null or is not an instance of this class
         // if so, return false
         if (o == null || getClass() != o.getClass()) return false;
-        //cast o to be of type PersonQuotesDAO
-        PersonQuotesDAO that = (PersonQuotesDAO) o;
+        //cast o to be of type PersonQuotes
+        PersonQuotes that = (PersonQuotes) o;
 
         //compare each attribute and return true or false result
         if (id != that.id) return false;
@@ -116,8 +116,8 @@ public class PersonQuotesDAO implements DatabasesAccessObject {
     }
 
     /**
-     * This method constructs and returns a hashcode value for the PersonQuotesDAO object
-     * @return a hashcode value for the PersonQuotesDAO object 
+     * This method constructs and returns a hashcode value for the PersonQuotes object
+     * @return a hashcode value for the PersonQuotes object 
      */
     @Override
     public int hashCode() {
@@ -129,8 +129,8 @@ public class PersonQuotesDAO implements DatabasesAccessObject {
 
     /**
      * This method overrides the toString method to display the attributes of the
- PersonQuotesDAO object as a String
-     * @return String containing attributes of PersonQuotesDAO object
+ PersonQuotes object as a String
+     * @return String containing attributes of PersonQuotes object
      */
     @Override
     public String toString() {

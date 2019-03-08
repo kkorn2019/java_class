@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 
@@ -25,18 +26,18 @@ public class XMLUtils {
          * Put the provided XML String into the specified XML Domain Object using JAXB without using
          * schema validation.
          *
-         * @param xmlInstance an XML instance that matched the XML Domain object specified by T
+         * @param filePath    file path for an XML instance that matched the XML Domain object specified by T
          * @param T           a XML Domain object class which corresponds the XML instance
          * @return XML Domain Object of type T populated with values in the provided String.
          * @throws InvalidXMLException if the provided  xmlInstance cannot be successfully parsed.
 
          */
-        public static  <T extends XMLDomainObject> T unmarshall(String xmlInstance, Class T)
+        public static  <T extends XMLDomainObject> T unmarshall(String filePath, Class T)
                 throws InvalidXMLException {
             T returnValue;
             try {
                 Unmarshaller unmarshaller = createUnmarshaller(T);
-                returnValue = (T) unmarshaller.unmarshal(new StringReader(xmlInstance));
+                returnValue = (T) unmarshaller.unmarshal(new File(filePath));
             } catch (JAXBException e) {
                 throw new InvalidXMLException("JAXBException issue: " +e.getMessage(),e);
             }
@@ -47,13 +48,13 @@ public class XMLUtils {
          * Put the provided XML String into the specified XML Domain Object using JAXB using
          * schema validation.
          *
-         * @param xmlInstance an XML instance that matched the XML Domain object specified by T
+         * @param filePath    file path for an XML instance that matched the XML Domain object specified by T
          * @param T           a XML Domain object class which corresponds the XML instance
          * @param schemaName  the name of the .xsd schema which must be on the classpath - used for validation.
          * @return XML Domain Object of type T populated with values in the provided String.
          * @throws InvalidXMLException if the provided  xmlInstance cannot be successfully parsed.
          */
-        public static <T extends XMLDomainObject> T unmarshall(String xmlInstance, Class T, String schemaName)
+        public static <T extends XMLDomainObject> T unmarshall(String filePath, Class T, String schemaName)
                 throws InvalidXMLException {
 
             T returnValue;
@@ -69,7 +70,7 @@ public class XMLUtils {
                 Unmarshaller unmarshaller = createUnmarshaller(T);
                 unmarshaller.setSchema(schema);
 
-                returnValue = (T) unmarshaller.unmarshal(new StringReader(xmlInstance));
+                returnValue = (T) unmarshaller.unmarshal(new File(filePath));
             } catch (JAXBException | SAXException e) {
                 throw new InvalidXMLException(e.getMessage(),e);
             }

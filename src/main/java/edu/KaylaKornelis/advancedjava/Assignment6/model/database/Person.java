@@ -8,11 +8,11 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
- * Models the PersonDAO table
+ * Models the Person table
  */
 @Entity
 @Table(name="person")
-public class PersonDAO implements DatabasesAccessObject {
+public class Person implements DatabasesAccessObject {
 
     private int id;
     private String firstName;
@@ -107,7 +107,7 @@ public class PersonDAO implements DatabasesAccessObject {
         if (o == null || getClass() != o.getClass()) return false;
 
         //cast o to be of type person 
-        PersonDAO person = (PersonDAO) o;
+        Person person = (Person) o;
 
         //compare each attribute and return true or false result
         if (id != person.id) return false;
