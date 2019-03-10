@@ -32,6 +32,8 @@ public class JAXBAppTest {
     
     private JAXBApp jaxbApp;
     private DatabaseUtils databaseUtilsMock;
+    private Stocks stocksMock;
+    private Quotes quotesMock;
     
     private static final String xmlStocksTest =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
@@ -47,6 +49,8 @@ public class JAXBAppTest {
     @Before
     public void setUp() {
         databaseUtilsMock = mock(DatabaseUtils.class);
+        stocksMock = mock(Stocks.class);
+        quotesMock = mock(Quotes.class);
     }
     
     /**
@@ -80,7 +84,7 @@ public class JAXBAppTest {
         String queryExpected = "INSERT INTO quotes (symbol,time,price) VALUES ('TST1','2001-01-01 01:01:01','101.10');";
         JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(xmlStocksTest));
+        stocksMock = (Stocks) unmarshaller.unmarshal(new StringReader(xmlStocksTest));
         
         Connection connection = null;
         try {
@@ -89,13 +93,13 @@ public class JAXBAppTest {
             Statement statement = connection.createStatement();
             StringBuilder stringBuilder = new StringBuilder();
             
-            Quotes quotes = new Quotes(stocks.getStock().get(0));
+            quotesMock = new Quotes(stocksMock.getStock().get(0));
             stringBuilder.append("INSERT INTO quotes (symbol,time,price) VALUES ('")
-                        .append(quotes.getSymbol())
+                        .append(quotesMock.getSymbol())
                         .append("','")
-                        .append(convertTimestampToString(quotes.getTime()))
+                        .append(convertTimestampToString(quotesMock.getTime()))
                         .append("','")
-                        .append(convertBigDecimalToString(quotes.getPrice()))
+                        .append(convertBigDecimalToString(quotesMock.getPrice()))
                         .append("');");
             
             //insert each quote into the database
@@ -112,7 +116,7 @@ public class JAXBAppTest {
         Marshaller marshaller = context.createMarshaller();
 
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(stocks, byteArrayOutputStream);
+        marshaller.marshal(stocksMock, byteArrayOutputStream);
         String xmlResult = byteArrayOutputStream.toString();
         
         assertEquals("XML out is correct", xmlResult.trim(), xmlStocksTest.trim());
