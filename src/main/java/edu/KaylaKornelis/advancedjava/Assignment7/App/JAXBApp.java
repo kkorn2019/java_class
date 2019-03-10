@@ -12,8 +12,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -23,9 +21,20 @@ import javax.xml.bind.Unmarshaller;
  * A basic app that shows how to marshall and unmarshall XML instances.
  */
 public class JAXBApp {
+    
+    private final DatabaseUtils databaseUtils;
+    
+    /**
+     * Create a new Application.
+     *
+     * @param databaseUtils the database instance to be used 
+     */
+    public JAXBApp(DatabaseUtils databaseUtils){
+        this.databaseUtils = databaseUtils;
+    }
 
     private static String xmlFilePath = "./src/main/resources/xml/stock_info.xml";
-    private static String xmlInstance =
+    private static String xmlStocks =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<stocks>\n" +
             "    <stock symbol=\"VNET\" price=\"110.10\" time=\"2015-02-10 00:00:01\"></stock>\n" +
@@ -80,39 +89,48 @@ public class JAXBApp {
             "</stocks>";
 
 
-    public static void main(String[] args) throws JAXBException, SQLException {
+    /**
+     * Run the JAXB application.
+     * <p/>
+     *
+     * @param args potentially contains a list of arguments to be used in the application
+     * -- empty for this particular application
+     */
+    public static void main(String[] args) throws JAXBException, SQLException, Exception {
 
         // here is how to go from XML to Java
         JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         Stocks stocks = (Stocks) unmarshaller.unmarshal(new File(xmlFilePath));
         
+        //Create database connection
         Connection connection = null;
         try {
             connection = DatabaseUtils.getConnection();
         
         Statement statement = connection.createStatement();
-        StringBuilder stringBuilder = new StringBuilder();
             
+        //loop through each stock in the list of stocks returned from the unmarshaller
+
         for (int i = 0; i < stocks.getStock().size(); i++){
             Quotes quotes = new Quotes(stocks.getStock().get(i));
+            StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("INSERT INTO quotes (symbol,time,price) VALUES ('")
                        .append(quotes.getSymbol())
                        .append("','")
                        .append(convertTimestampToString(quotes.getTime()))
                        .append("','")
                        .append(convertBigDecimalToString(quotes.getPrice()))
-                       .append("'); ");
-        }
-        System.out.println(stringBuilder.toString());
-        
-        statement.executeUpdate(stringBuilder.toString());
-        } catch (DatabaseConnectionException ex) {
-            Logger.getLogger(JAXBApp.class.getName()).log(Level.SEVERE, null, ex);
+                       .append("');");
+            
+            //insert each quote into the database
+            statement.executeUpdate(stringBuilder.toString());    
         }
         
-        System.out.println(stocks.toString());
-
+        } catch (Exception ex) {
+            throw new  DatabaseConnectionException("Could not connect to database." + ex.getMessage(), ex);
+        }
+        
         // here is how to go from Java to XML
         JAXBContext context = JAXBContext.newInstance(Stocks.class);
         Marshaller marshaller = context.createMarshaller();
@@ -122,6 +140,11 @@ public class JAXBApp {
 
     }
     
+    /**
+     * Helper method to convert dates of type Timestamp into String
+     * @param dateEntered
+     * @return  convertedDate
+     */
     public static String convertTimestampToString(Timestamp dateEntered){
         /**
          * Create a new instance of SimpleDateFormat that will be used to 
@@ -134,6 +157,11 @@ public class JAXBApp {
         return convertedDate;
     }
     
+    /**
+     * Helper method to convert prices of type Big Decimal into String
+     * @param priceEntered
+     * @return convertedPrice
+     */
     public static String convertBigDecimalToString(BigDecimal priceEntered){
         
         String convertedPrice = priceEntered.toString();

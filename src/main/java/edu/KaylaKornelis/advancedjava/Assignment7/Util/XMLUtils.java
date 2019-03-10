@@ -15,7 +15,6 @@ import javax.xml.validation.SchemaFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 
 /**
  * A collection of helper methods for marshaling and unmarshaling XML instances.
@@ -99,6 +98,12 @@ public class XMLUtils {
 
 
 
+    /**
+     * Helper method to create unmarshaller
+     * @param T
+     * @return unmarshaller
+     * @throws JAXBException 
+     */
         private static Unmarshaller createUnmarshaller(Class T) throws JAXBException {
             JAXBContext jaxbContext = JAXBContext.newInstance(T);
             return jaxbContext.createUnmarshaller();

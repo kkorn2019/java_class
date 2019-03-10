@@ -12,9 +12,9 @@ import org.junit.Test;
  */
 public class XmlUtilsTest {
 
-    private static String STOCK_SYMBOL_INDEX0 = "VNET";
-    private static String xmlFilePath = "./src/main/resources/xml/stock_info.xml";
-    private static String xmlStocks = 
+    private static final String STOCK_SYMBOL_INDEX0 = "VNET";
+    private static final String xmlFilePath = "./src/main/resources/xml/stock_info.xml";
+    private static final String xmlStocks = 
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<stocks>\n" +
             "    <stock symbol=\"VNET\" price=\"110.10\" time=\"2015-02-10 00:00:01\"></stock>\n" +
@@ -68,18 +68,33 @@ public class XmlUtilsTest {
             "    <stock symbol=\"OTOW\" price=\"60.41\" time=\"2015-02-10 00:00:01\"></stock>\n" +
             "</stocks>";
 
+    
+    /**
+     * This method tests that the unmarshal method in XMLUtils works correctly
+     * @throws Exception 
+     */
     @Test
     public void testUnmarshal() throws Exception {
         Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class);
         validateStocks(stocks);
     }
 
+    /**
+     * This method tests the unmarshal method in XMLUtils and validates the xml format 
+     * against the given schema
+     * @throws Exception 
+     */
     @Test
     public void testUnmarshallWithSchemaValidation()throws Exception {
         Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class, "/xml/stock_info.xsd");
         validateStocks(stocks);
     }
 
+    /**
+     * This method tests the marshal method in XMLUtils and validates that the xml data returned
+     * matches the xml data that was input.
+     * @throws Exception 
+     */
     @Test
     public void testMarshal() throws Exception {
         Stocks stocks = XMLUtils.unmarshall(xmlFilePath, Stocks.class, "/xml/stock_info.xsd");
@@ -88,6 +103,12 @@ public class XmlUtilsTest {
         assertEquals("XML out is correct", xml.trim(), xmlStocks.trim());
     }
 
+    /**
+     * Helper method used by the testUnmarshal and testUnmarshallWithSchemaValidation methods
+     * Verifies that after unmarshalling, we are able to retrieve and validate the 
+     * stock symbol in the first index of the list of stocks
+     * @param stocks 
+     */
     private void validateStocks(Stocks stocks) {
         assertTrue("Stock symbol is correct", stocks.getStock().get(0).getSymbol().equals(STOCK_SYMBOL_INDEX0));
     }
