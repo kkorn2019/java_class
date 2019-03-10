@@ -21,7 +21,7 @@ public class StockSymbol implements DatabasesAccessObject {
     }
     
     public StockSymbol(Stock stock){
-        
+        this.symbol = stock.getSymbol();
     }
 
     @Id

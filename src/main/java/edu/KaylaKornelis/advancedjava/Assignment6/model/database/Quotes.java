@@ -10,11 +10,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Models the Quotes table
  */
 @Entity
+@Table(name = "quotes", catalog = "stocks")
 public class Quotes implements DatabasesAccessObject {
 
     private int id;
