@@ -2,27 +2,25 @@ package edu.KaylaKornelis.advancedjava.Assignment7Test.App;
 
 import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseConnectionException;
+import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseInitializationException;
 import edu.KaylaKornelis.advancedjava.Assignment6.util.DatabaseUtils;
-import edu.KaylaKornelis.advancedjava.Assignment7.App.JAXBApp;
-import static edu.KaylaKornelis.advancedjava.Assignment7.App.JAXBApp.convertBigDecimalToString;
-import static edu.KaylaKornelis.advancedjava.Assignment7.App.JAXBApp.convertTimestampToString;
 import edu.KaylaKornelis.advancedjava.Assignment7.Xml.Stocks;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.StringReader;
-import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 /**
  * Tests for JAXBApp
@@ -30,10 +28,7 @@ import static org.mockito.Mockito.mock;
 
 public class JAXBAppTest {
     
-    private JAXBApp jaxbApp;
-    private DatabaseUtils databaseUtilsMock;
-    
-    private static final String xmlStocksTest =
+    private static final String XML_STOCKS_TEST =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<stocks>\n" +
             "    <stock symbol=\"TST1\" price=\"101.10\" time=\"2001-01-01 01:01:01\"></stock>\n" +
@@ -44,120 +39,70 @@ public class JAXBAppTest {
             "</stocks>";
     
 
-    @Before
-    public void setUp() {
-        databaseUtilsMock = mock(DatabaseUtils.class);
-    }
-    
-    /**
-     * This method tests that the JAXBApp constructor works correctly
-     */
-    @Test
-    public void testValidConstruction() {
-        jaxbApp = new JAXBApp(databaseUtilsMock);
-        assertNotNull("Basic construction works", jaxbApp);
-    }
-    
-    /**
-     * This method tests that a database connection can be created with a 
-     * mocked DatabaseUtils instance
-     * @throws DatabaseConnectionException 
-     */
-    @Test
-    public void testDatabaseConnectionCreated() throws DatabaseConnectionException{
-        Connection connection = databaseUtilsMock.getConnection();
-        assertNotNull(connection);
+    @Before 
+    public void setUp() throws DatabaseInitializationException{
+        //initialize database
+        DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
     }
     
     /**
      * This method tests that stocks can successfully be added to the mocked database
      * @throws JAXBException
-     * @throws DatabaseConnectionException 
+     *  
      */
     @Test
-    public void testAddStocksToDatabase() throws JAXBException, DatabaseConnectionException{
-        String queryTest = "";
-        String queryExpected = "INSERT INTO quotes (symbol,time,price) VALUES ('TST1','2001-01-01 01:01:01','101.10');";
+    public void testAddStocksToDatabase() throws JAXBException, DatabaseConnectionException, SQLException{
         JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(XML_STOCKS_TEST));
         
-        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(xmlStocksTest));
-        
-        Connection connection = null;
-        try {
-            connection = databaseUtilsMock.getConnection();
-        
-            Statement statement = connection.createStatement();
-            StringBuilder stringBuilder = new StringBuilder();
+        //loop through each stock in the list of stocks returned from the unmarshaller
+        for (int i = 0; i < stocks.getStock().size(); i++){
+            //create new quote from each stock in stocks
+            Quotes quote = new Quotes(stocks.getStock().get(i));
             
-            Quotes quotes = new Quotes(stocks.getStock().get(0));
-            stringBuilder.append("INSERT INTO quotes (symbol,time,price) VALUES ('")
-                        .append(quotes.getSymbol())
-                        .append("','")
-                        .append(convertTimestampToString(quotes.getTime()))
-                        .append("','")
-                        .append(convertBigDecimalToString(quotes.getPrice()))
-                        .append("');");
-            
-            //insert each quote into the database
-            statement.executeUpdate(stringBuilder.toString());   
-            queryTest = stringBuilder.toString();
-            
-        }catch (Exception ex) {
-            throw new  DatabaseConnectionException("Could not connect to database." + ex.getMessage(), ex);
+            //open hibernate session and persist each quote, then close session
+            Session session = DatabaseUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.persist(quote);
+            transaction.commit();
+            session.flush();
+            session.close();     
         }
         
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Connection connection = DatabaseUtils.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select * from quotes;");
         
-        JAXBContext context = JAXBContext.newInstance(Stocks.class);
-        Marshaller marshaller = context.createMarshaller();
-
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(stocks, byteArrayOutputStream);
-        String xmlResult = byteArrayOutputStream.toString();
+        int size = 0; 
+        if (resultSet != null){
+            resultSet.last();
+            size = resultSet.getRow();
+        }
         
-        assertEquals("XML out is correct", xmlResult.trim(), xmlStocksTest.trim());
-        assertEquals("Query is correct", queryExpected, queryTest);
+        assertEquals(size, 13);
+        
     }
     
-    /**
-     * This method tests that a value of type Timestamp can be converted to a String
-     * with the convertTimestampToString in the JAXBApp class
-     * @throws JAXBException 
-     */
     @Test 
-    public void testConvertTimestampToString() throws JAXBException{
-        JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(xmlStocksTest));
-        Quotes quotes = new Quotes(stocks.getStock().get(0));
+    public void testDatabaseCleanUp() throws DatabaseInitializationException, JAXBException, SQLException, DatabaseConnectionException{
+        Connection connection = DatabaseUtils.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select * from quotes;");
         
-        Timestamp timestampTest = quotes.getTime();
-        
-        String convertedTime = JAXBApp.convertTimestampToString(timestampTest);
-        String expectedTime = "2001-01-01 01:01:01";
-       
-        assertEquals("Verify Timestamp to String conversion", convertedTime, expectedTime);
+        int size = 0; 
+        if (resultSet != null){
+            resultSet.last();
+            size = resultSet.getRow();
+        }
+
+        assertEquals(size, 8);
     }
     
-    /**
-     * This method tests that a value of type BigDecimal can be converted to a String
-     * with the convertBigDecimalToString in the JAXBApp class
-     * @throws JAXBException 
-     */
-    @Test
-    public void TestConvertBigDecimalToString() throws JAXBException{
-        JAXBContext jaxbContext = JAXBContext.newInstance(Stocks.class);
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        Stocks stocks = (Stocks) unmarshaller.unmarshal(new StringReader(xmlStocksTest));
-        Quotes quotes = new Quotes(stocks.getStock().get(0));
-        
-        BigDecimal bigDecimalTest = quotes.getPrice();
-        
-        String convertedPrice = JAXBApp.convertBigDecimalToString(bigDecimalTest);
-        String expectedPrice = "101.10";
-       
-        assertEquals("Verify BigDecimal to String conversion", convertedPrice, expectedPrice);
+    @After 
+    public void tearDown() throws DatabaseInitializationException{
+        //initialize database
+        DatabaseUtils.initializeDatabase(DatabaseUtils.initializationFile);
     }
 
 }
