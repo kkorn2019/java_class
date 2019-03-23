@@ -1,23 +1,39 @@
-package edu.KaylaKornelis.advancedjava.Assignment6.model;
+package edu.KaylaKornelis.advancedjava.Assignment6.model.database;
 
+import edu.KaylaKornelis.advancedjava.Assignment7.Xml.Stock;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Models the Quotes table
  */
 @Entity
-public class Quotes {
+@Table(name = "quotes", catalog = "stocks")
+public class Quotes implements DatabasesAccessObject {
 
     private int id;
     private String symbol;
     private Timestamp time;
     private BigDecimal price;
 
+    public Quotes(){
+        
+    }
+    
+    public Quotes(Stock stock){
+        this.symbol = stock.getSymbol();
+        this.time = convertStringToTimestamp(stock.getTime());
+        this.price = convertStringToBigDecimal(stock.getPrice());
+    }
+    
     /**
      * Primary Key - Unique ID for a particular row in the quotes table.
      *
@@ -145,5 +161,30 @@ public class Quotes {
                 ", time='" + time + '\'' +
                 ", price=" + price +
                 '}';
+    }
+    
+        public static Timestamp convertStringToTimestamp(String dateEntered){
+        /**
+         * Create a new instance of SimpleDateFormat that will be used to 
+         * parse the string arguments to obtain desired start and end dates
+         */
+        SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = simpleDateFormatter.parse(dateEntered);
+        } catch (ParseException ex) {
+            System.out.println("Incorrect format for date. System will exit.");
+            System.exit(1);
+        }
+        Timestamp convertedDate = new Timestamp(date.getTime());
+
+        return convertedDate;
+    }
+        
+        public static BigDecimal convertStringToBigDecimal(String priceEntered){
+        
+        BigDecimal convertedPrice = new BigDecimal(priceEntered);
+        
+        return convertedPrice;
     }
 }

@@ -8,7 +8,6 @@ import org.apache.http.annotation.Immutable;
 /**
  * A container class that contains stock data.
  * This class is immutable. It holds stock info for a given point time.
-
  */
 @Immutable
 public class StockQuote extends StockData {
@@ -24,7 +23,6 @@ public class StockQuote extends StockData {
      * @param date   the date of the share price
      * @param symbol the stock symbol.
      */
-
     public StockQuote(@NotNull BigDecimal price, @NotNull Date date, @NotNull String symbol) {
         super();
         this.price = price;

@@ -1,4 +1,4 @@
-package edu.KaylaKornelis.advancedjava.Assignment6.model;
+package edu.KaylaKornelis.advancedjava.Assignment6.model.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "person_quotes", catalog = "stocks")
-public class PersonQuotes {
+public class PersonQuotes implements DatabasesAccessObject {
     private int id;
     private Person person;
     private Quotes quote;
@@ -26,7 +26,7 @@ public class PersonQuotes {
     }
 
     /**
-     * Create a valid PersonQuotes
+     * Create a valid PersonStocks instance
      *
      * @param person the person to assign the quote to
      * @param quote  the quote to associate the person with
@@ -116,8 +116,8 @@ public class PersonQuotes {
     }
 
     /**
-     * This method constructs and returns a hashcode value for the personquotes object
-     * @return a hashcode value for the personquotes object 
+     * This method constructs and returns a hashcode value for the PersonQuotes object
+     * @return a hashcode value for the PersonQuotes object 
      */
     @Override
     public int hashCode() {
@@ -129,12 +129,12 @@ public class PersonQuotes {
 
     /**
      * This method overrides the toString method to display the attributes of the
-     * PersonQuote object as a String
-     * @return String containing attributes of PersonQuote object
+ PersonQuotes object as a String
+     * @return String containing attributes of PersonQuotes object
      */
     @Override
     public String toString() {
-        return "PersonQuote{" +
+        return "PersonStocks{" +
                 "id=" + id +
                 ", person=" + person +
                 ", quote=" + quote +

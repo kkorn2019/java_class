@@ -17,8 +17,6 @@ public class BasicStockQuoteApplication {
 
     private final StockService stockService;
 
-    // an example of how to use enum - not part of assignment 3 but useful for assignment 4
-
     /**
      * An enumeration that indicates how the program terminates (ends)
      */

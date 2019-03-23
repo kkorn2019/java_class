@@ -1,6 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
+package edu.KaylaKornelis.advancedjava.Assignment6Test.model.database;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test for Quotes class
  */
-public class QuotesTest {
+public class QuotesDAOTest {
     
     public  static final Calendar timeStampCalendar = Calendar.getInstance();
 

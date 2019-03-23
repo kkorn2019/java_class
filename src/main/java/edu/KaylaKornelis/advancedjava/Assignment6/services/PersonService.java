@@ -1,7 +1,7 @@
 package edu.KaylaKornelis.advancedjava.Assignment6.services;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Quotes;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Person;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Quotes;
 import java.util.List;
 
 /**

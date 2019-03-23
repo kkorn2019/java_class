@@ -1,6 +1,6 @@
-package edu.KaylaKornelis.advancedjava.Assignment6Test.model;
+package edu.KaylaKornelis.advancedjava.Assignment6Test.model.database;
 
-import edu.KaylaKornelis.advancedjava.Assignment6.model.Person;
+import edu.KaylaKornelis.advancedjava.Assignment6.model.database.Person;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test for the Person class
  */
-public class PersonTest {
+public class PersonDAOTest {
 
     public  static final Calendar birthDayCalendar = Calendar.getInstance();
 
