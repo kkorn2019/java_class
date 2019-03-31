@@ -128,6 +128,5 @@ public class BasicStockQuoteApplication {
         }
 
         exit(exitStatus, programTerminationMessage);
-        System.out.println("Oops could not parse a date");
     }
 }

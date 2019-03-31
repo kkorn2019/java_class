@@ -19,7 +19,7 @@ public class RestfulStockService implements StockService {
 
         try {
 
-            URL url = new URL("localhost:8080");
+            URL url = new URL("http://localhost:8080");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -38,12 +38,13 @@ public class RestfulStockService implements StockService {
             }
 
             conn.disconnect();
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             throw new StockServiceException(ex.getMessage());
         }
         
         System.out.println(stringBuffer.toString());
-        return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), "APPL");
+        
+        return new StockQuote(new BigDecimal(100), Calendar.getInstance().getTime(), symbol);
     }
 
     @Override

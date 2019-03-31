@@ -28,7 +28,7 @@ public class ServiceFactory {
     
     /**
      *
-     * @return get a <CODE>StockService</CODE> instance
+     * @return get a <CODE>RestfulStockService</CODE> instance
      */
     public static RestfulStockService getRestfulStockService() {
         return new RestfulStockService();
