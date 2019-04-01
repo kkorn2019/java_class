@@ -12,10 +12,10 @@ public class ServiceFactory {
 
     /**
      *
-     * @return get a <CODE>StockService</CODE> instance
+     * @return get a <CODE>RestfulStockService</CODE> instance
      */
-    public static StockService getStockService() {
-        return new DatabaseStockService();
+    public static RestfulStockService getStockService() {
+        return new RestfulStockService();
     }
 
     /**
@@ -24,13 +24,5 @@ public class ServiceFactory {
      */
     public static  UserService getUserService() {
         return new DatabaseUserService();
-    }
-    
-    /**
-     *
-     * @return get a <CODE>RestfulStockService</CODE> instance
-     */
-    public static RestfulStockService getRestfulStockService() {
-        return new RestfulStockService();
     }
 }

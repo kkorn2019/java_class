@@ -121,7 +121,7 @@ public class BasicStockQuoteApplication {
         String programTerminationMessage = "Normal program termination.";
         
         try {
-            StockService stockService = ServiceFactory.getRestfulStockService();
+            StockService stockService = ServiceFactory.getStockService();
             stockService.getQuote("APPL");
         } catch (Throwable e) {
             exitStatus = ProgramTerminationStatusEnum.ABNORMAL;
